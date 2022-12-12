@@ -11,17 +11,24 @@ const pacmanX = pacman.left
 let pmMoveDir = 0;
 let pmX = 0;
 let pmY = 0;
+let frameForAnimation = 1;
 
 function main() {
     if (pmMoveDir === 1) {
         pacmanMovesRight();
+        pacmanAnimation(pmRightAni);
     } else if (pmMoveDir === 2) {
         pacmanMovesLeft();
+        pacmanAnimation(pmLeftAni);
     } else if (pmMoveDir === 3) {
         pacmanMovesUp();
+        pacmanAnimation(pmUpAni);
     } else if (pmMoveDir === 4) {
-        pacmanMovesDown()
+        pacmanMovesDown();
+        pacmanAnimation(pmDownAni);
     }
+
+    pacmanAnimation();
 }
 
 addEventListener("keydown", (event) => {
@@ -64,6 +71,18 @@ function pacmanMovesDown() {
     }
     pacman.style.top = `${pmY}px`;
 }
-console.log(pmX);
+
+function pacmanAnimation(arr) {
+    const pacmanSprite = document.getElementById("pacman-sprite");
+    frameForAnimation += 1;
+    frameForAnimation = frameForAnimation === pmAniSpeed * 4 + 1 ? 1 : frameForAnimation;
+    if (frameForAnimation < pmAniSpeed + 1) {
+        pacmanSprite.src = arr[0];
+    } else if (frameForAnimation < pmAniSpeed * 2 + 1 || frameForAnimation > pmAniSpeed * 3) {
+        pacmanSprite.src = arr[1];
+    } else {
+        pacmanSprite.src = arr[2];
+    }
+}
 
 setInterval(main, DT)
