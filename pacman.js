@@ -1,3 +1,4 @@
+const SPRITE_SIZE = 40;
 const SCREEN_END = 800;
 const SCREEN_START = 0;
 const VELOCITY = 5;
