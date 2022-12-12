@@ -1,30 +1,18 @@
-const RASTER_SIZE = 25;
-const GAMEBOARD_WD = 800;
-const GAMEBOARD_HG = 800;
-const ENTITY_EL = document.getElementById("game");
-const WALL_SOURCE = "./assets/images/wall.png";
-const PALLET_SOURCE = "./assets/images/pellet/pellet.png";
-const PALLET_POW_SOURCE = "../assets/images/pellet/power-pellet.png";
-
-const LEVEL_20X10 = {
-  sizeX: 20,
-  sizeY: 10,
-  pattern:
-    "" +
-    "####################" +
-    "#X................X#" +
-    "#.################.#" +
-    "#.################.#" +
-    ".X................X." +
-    "#.################.#" +
-    "#.################.#" +
-    "#X................X#" +
-    "#X................X#" +
-    "####################",
-};
+const {
+  RASTER_SIZE,
+  GAMEBOARD_WD,
+  GAMEBOARD_HG,
+  ENTITY_EL,
+  WALL_SOURCE,
+  PALLET_SOURCE,
+  PALLET_POW_SOURCE,
+  LEVEL_PATTERN,
+} = require("src/constants.js");
+const constats = require("./constants.js");
 
 // create raster 20px - 20px
 // for testing purposes
+
 function createRaster(nX, nY, dx = RASTER_SIZE, dy = RASTER_SIZE) {
   for (let y = 0; y < nY * RASTER_SIZE; y += dy) {
     for (let x = 0; x < nX * RASTER_SIZE; x += dx) {
@@ -75,4 +63,4 @@ function createTable(
   }
 }
 
-createTable(LEVEL_20X10.sizeX, LEVEL_20X10.sizeY, LEVEL_20X10.pattern);
+createTable(LEVEL_PATTERN.sizeX, LEVEL_PATTERN.sizeY, LEVEL_PATTERN.pattern);
