@@ -15,8 +15,17 @@ body {
      * Using absolute positioning, we can position our entities
      * within our game using the CSS properties `left` (x) and `top` (y).
      */
+    width: 40px;
+    height: 40px;
     position: absolute;
+    z-index: +1;
 }
+
+.entity img {
+    width: 20px;
+    height: 20px;
+}
+
 .raster {
     background-color: white;
     border: 2px rgb(151, 151, 230) solid;
