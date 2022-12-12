@@ -1,15 +1,3 @@
-const {
-  RASTER_SIZE,
-  GAMEBOARD_WD,
-  GAMEBOARD_HG,
-  ENTITY_EL,
-  WALL_SOURCE,
-  PALLET_SOURCE,
-  PALLET_POW_SOURCE,
-  LEVEL_PATTERN,
-} = require("src/constants.js");
-const constats = require("./constants.js");
-
 // create raster 20px - 20px
 // for testing purposes
 
@@ -58,7 +46,6 @@ function createTable(
       }
 
       counter += 1;
-      console.log(counter);
     }
   }
 }
