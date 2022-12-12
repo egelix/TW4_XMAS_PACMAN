@@ -1,0 +1,19 @@
+body {
+    margin: 0;
+}
+
+#game {
+    position: relative;
+    width: 800px;
+    height: 800px;
+    margin: auto;
+    background-color: gray;
+}
+
+.entity {
+    /*
+     * Using absolute positioning, we can position our entities
+     * within our game using the CSS properties `left` (x) and `top` (y).
+     */
+    position: absolute;
+}
