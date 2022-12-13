@@ -8,38 +8,45 @@ const DT = 1000/FPS;
 const pacman = document.querySelector("#pacman");
 const pacmanX = pacman.left
 
-let pmMoveDir = 0;
-let pmX = 0;
-let pmY = 0;
-let frameForAnimation = 1;
+// console.log(testNodesVar[0])
 
+let pmMoveDir = "STILL";
+let pmX = 160;
+let pmY = 160;
+let pmPos = (pmX, pmY)
+let frameForAnimation = 1;
+// pmPos = nodeD;
 function main() {
-    if (pmMoveDir === 1) {
+    if (pmMoveDir === "RIGHT") {
         pacmanMovesRight();
-        pacmanAnimation(pmRightAni);
-    } else if (pmMoveDir === 2) {
+        // pacmanAnimation(pmRightAni);
+    } else if (pmMoveDir === "LEFT") {
         pacmanMovesLeft();
-        pacmanAnimation(pmLeftAni);
-    } else if (pmMoveDir === 3) {
+        // pacmanAnimation(pmLeftAni);
+    } else if (pmMoveDir === "UP") {
         pacmanMovesUp();
-        pacmanAnimation(pmUpAni);
-    } else if (pmMoveDir === 4) {
+        // pacmanAnimation(pmUpAni);
+    } else if (pmMoveDir === "DOWN") {
         pacmanMovesDown();
-        pacmanAnimation(pmDownAni);
+        // pacmanAnimation(pmDownAni);
+    } else {
+        pacman.style.left = `${pmX}px`
+        pacman.style.top = `${pmY}px`
+
     }
 
-    pacmanAnimation();
+    // pacmanAnimation();
 }
 
 addEventListener("keydown", (event) => {
     if (event.key === "d" || event.key === "ArrowRight") {
-        pmMoveDir = 1;
+        pmMoveDir = "RIGHT";
     } else if (event.key === "a" || event.key === "ArrowLeft") {
-        pmMoveDir = 2;
+        pmMoveDir = "LEFT";
     } else if (event.key === "w" || event.key === "ArrowUp") {
-        pmMoveDir = 3;
+        pmMoveDir = "UP";
     } else if (event.key === "s" || event.key === "ArrowDown") {
-        pmMoveDir = 4;
+        pmMoveDir = "DOWN";
     }
 })
 
@@ -72,17 +79,18 @@ function pacmanMovesDown() {
     pacman.style.top = `${pmY}px`;
 }
 
-function pacmanAnimation(arr) {
-    const pacmanSprite = document.getElementById("pacman-sprite");
-    frameForAnimation += 1;
-    frameForAnimation = frameForAnimation === pmAniSpeed * 4 + 1 ? 1 : frameForAnimation;
-    if (frameForAnimation < pmAniSpeed + 1) {
-        pacmanSprite.src = arr[0];
-    } else if (frameForAnimation < pmAniSpeed * 2 + 1 || frameForAnimation > pmAniSpeed * 3) {
-        pacmanSprite.src = arr[1];
-    } else {
-        pacmanSprite.src = arr[2];
-    }
-}
+// function pacmanAnimation(arr) {
+//     const pacmanSprite = document.getElementById("pacman-sprite");
+//     frameForAnimation += 1;
+//     frameForAnimation = frameForAnimation === pmAniSpeed * 4 + 1 ? 1 : frameForAnimation;
+//     if (frameForAnimation < pmAniSpeed + 1) {
+//         pacmanSprite.src = arr[0];
+//     } else if (frameForAnimation < pmAniSpeed * 2 + 1 || frameForAnimation > pmAniSpeed * 3) {
+//         pacmanSprite.src = arr[1];
+//     } else {
+//         pacmanSprite.src = arr[2];
+//     }
+// }
 
 setInterval(main, DT)
+
