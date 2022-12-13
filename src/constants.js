@@ -26,7 +26,7 @@ const pmDownAni = [
   "./assets/images/pacman/pacman-down/pacman-down-2.png",
 ];
 const pmAniSpeed = 15;
-const nodeSymbols = ["X", "+", "x"];
+const nodeSymbols = ["X", "+", "x", "@"];
 const pathSymbols = ["."];
 const palletSymbols = [".", "+"];
 
@@ -70,7 +70,7 @@ const LEVEL_0 = {
     "+.....+..+########+..+.....+" +
     "######.##.########.##.######" +
     "######.##.########.##.######" +
-    "######.##+........+##.######" +
+    "######.##+....@...+##.######" +
     "######.##.########.##.######" +
     "######.##.########.##.######" +
     "#X....+..+..+##+..+..+....X#" +
