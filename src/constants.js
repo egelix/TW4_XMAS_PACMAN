@@ -2,6 +2,7 @@ const RASTER_SIZE = 20;
 const GAMEBOARD_WD = 800;
 const GAMEBOARD_HG = 800;
 const ENTITY_EL = document.getElementById("game");
+const MAZE_EL = document.getElementById("maze");
 const WALL_SOURCE = "./assets/images/wall.png";
 const PALLET_SOURCE = "./assets/images/pellet/pellet.png";
 const PALLET_POW_SOURCE = "../assets/images/pellet/power-pellet.png";
