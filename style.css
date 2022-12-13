@@ -20,11 +20,15 @@ body {
 }
 
 #game {
-    position: relative;
+    position: flex;
+    flex-direction: column;
     width: 800px;
     height: 800px;
     margin: auto;
-    background-color: gray;
+}
+#maze {
+    position: relative;
+    background-color:rgb(167, 167, 167);
 }
 
 .entity {
