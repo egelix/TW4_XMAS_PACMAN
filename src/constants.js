@@ -45,14 +45,3 @@ const LEVEL_PATTERN = {
     "#X................X#" +
     "####################",
 };
-
-// module.exports = {
-//   RASTER_SIZE: RASTER_SIZE,
-//   GAMEBOARD_WD: GAMEBOARD_WD,
-//   GAMEBOARD_HG: GAMEBOARD_HG,
-//   ENTITY_EL: ENTITY_EL,
-//   WALL_SOURCE: WALL_SOURCE,
-//   PALLET_SOURCE: PALLET_SOURCE,
-//   PALLET_POW_SOURCE: PALLET_POW_SOURCE,
-//   LEVEL_PATTERN: LEVEL_20X10,
-// };
