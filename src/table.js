@@ -44,10 +44,9 @@ function createTable(
       } else if (sourcePattern[counter] === "X") {
         createTableEl(x, y, PALLET_POW_SOURCE);
       }
-
       counter += 1;
     }
   }
 }
 
-createTable(LEVEL_PATTERN.sizeX, LEVEL_PATTERN.sizeY, LEVEL_PATTERN.pattern);
+// createTable(LEVEL_PATTERN.sizeX, LEVEL_PATTERN.sizeY, LEVEL_PATTERN.pattern);
