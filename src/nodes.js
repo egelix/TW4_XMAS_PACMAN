@@ -41,18 +41,17 @@ const mazeTest = {
     "#X....X#" +
     "########",
 };
-/**
- * Reads the position in string, and converts in actual coordinate
- * @returns
- */
+
+function transposeMaze(level) {
+  let tMaze = "";
+  // for (let x = 0; x < level.sizeY)
+}
+transposeMaze(mazeTest);
+
 function constructKey(x, y, dx = RASTER_SIZE, dy = RASTER_SIZE) {
   return { x: x * dx, y: y * dy };
 }
-/**
- * Reads level information and creates list of unconnected Nodes
- * @param {Object} level
- * @returns {[Node]}
- */
+
 function createNodeTable(level) {
   let nodeList = [];
   let count = 0;
@@ -75,7 +74,6 @@ let nodes = createNodeTable(mazeTest);
 
 function getNodeByCoord(x, y, nodes) {
   for (const node of nodes) {
-    console.log(node.getX);
     if (node.getX === x && node.getY === y) return node;
   }
   return null;
@@ -93,10 +91,11 @@ function connectHorizontally(level, nodeList) {
           key = constructKey(x, y);
         } else {
           let otherkey = constructKey(x, y);
-          let firstNode = getNodeByCoord(key.x, key.y);
-          let secondNode = getNodeByCoord(otherkey.x, otherkey.y);
+          let firstNode = getNodeByCoord(key.x, key.y, nodeList);
+          let secondNode = getNodeByCoord(otherkey.x, otherkey.y, nodeList);
           firstNode.right = secondNode;
           secondNode.left = firstNode;
+          key = otherkey;
         }
       }
       count += 1;
@@ -106,7 +105,7 @@ function connectHorizontally(level, nodeList) {
 }
 //TEST connect Horizontally
 connectHorizontally(mazeTest, nodes);
-console.log(nodes);
+// console.log(nodes);
 
 function connectVertically() {
   return;
@@ -146,4 +145,4 @@ function renderNodes(nodesList) {
 }
 
 let testNodesVar = testNodes();
-renderNodes(testNodes);
+renderNodes(testNodesVar);
