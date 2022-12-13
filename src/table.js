@@ -27,14 +27,9 @@ function createTableEl(x, y, source) {
   ENTITY_EL.appendChild(wallEl);
 }
 
-function createTable(
-  nX,
-  nY,
-  sourcePattern,
-  dx = RASTER_SIZE,
-  dy = RASTER_SIZE
-) {
+function createMaze(nX, nY, sourcePattern, dx = RASTER_SIZE, dy = RASTER_SIZE) {
   let counter = 0;
+
   for (let y = 0; y < nY * RASTER_SIZE; y += dy) {
     for (let x = 0; x < nX * RASTER_SIZE; x += dx) {
       if (sourcePattern[counter] === "#") {
@@ -49,4 +44,4 @@ function createTable(
   }
 }
 
-createTable(LEVEL_0.sizeX, LEVEL_0.sizeY, LEVEL_0.pattern);
+createMaze(LEVEL_0.sizeX, LEVEL_0.sizeY, LEVEL_0.pattern);
