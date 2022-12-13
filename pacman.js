@@ -1,7 +1,7 @@
 const SPRITE_SIZE = 20;
 const SCREEN_END = 800;
 const SCREEN_START = 0;
-const VELOCITY = 7;
+const VELOCITY = 2;
 const FPS = 60;
 const DT = 1000 / FPS;
 
@@ -15,6 +15,7 @@ let pmY = getStartPosition(LEVEL_0).y;
 let frameForAnimation = 1;
 
 function main() {
+    console.log("move")
     resetSpritesToNodes(pmX, pmY, testNodesVar, VELOCITY);
 
   let pmMoveDir = pacmanValidMove(
@@ -28,21 +29,21 @@ function main() {
 
   if (pmMoveDir === "RIGHT") {
     pacmanMovesRight();
-    // pacmanAnimation(pmRightAni);
+    pacmanAnimation(pmRightAni);
   } else if (pmMoveDir === "LEFT") {
     pacmanMovesLeft();
-    // pacmanAnimation(pmLeftAni);
+    pacmanAnimation(pmLeftAni);
   } else if (pmMoveDir === "UP") {
     pacmanMovesUp();
-    // pacmanAnimation(pmUpAni);
+    pacmanAnimation(pmUpAni);
   } else if (pmMoveDir === "DOWN") {
     pacmanMovesDown();
-    // pacmanAnimation(pmDownAni);
+    pacmanAnimation(pmDownAni);
   } else {
     pacman.style.left = `${pmX}px`;
     pacman.style.top = `${pmY}px`;
+    pacmanAnimation();
   }
-  // pacmanAnimation();
 }
 
 addEventListener("keydown", (event) => {
@@ -120,21 +121,22 @@ function pacmanMovesDown() {
   pacman.style.top = `${pmY}px`;
 }
 
-// function pacmanAnimation(arr) {
-//     const pacmanSprite = document.getElementById("pacman-sprite");
-//     frameForAnimation += 1;
-//     frameForAnimation = frameForAnimation === pmAniSpeed * 4 + 1 ? 1 : frameForAnimation;
-//     if (frameForAnimation < pmAniSpeed + 1) {
-//         pacmanSprite.src = arr[0];
-//     } else if (frameForAnimation < pmAniSpeed * 2 + 1 || frameForAnimation > pmAniSpeed * 3) {
-//         pacmanSprite.src = arr[1];
-//     } else {
-//         pacmanSprite.src = arr[2];
-//     }
-// }
-// for (let node of testNodesVar) {
-//     console.log(node.position[0], node.position[1], node.neighbors[])
-// }
+function pacmanAnimation(arr) {
+    const pacmanSprite = document.getElementById("pacman-sprite");
+    frameForAnimation += 1;
+    if (arr === undefined) {
+        pacmanSprite.src = "./assets/images/pacman/pacman-0.png";
+        frameForAnimation = 1;
+    } else {
+        frameForAnimation = frameForAnimation === pmAniSpeed * 4 + 1 ? 1 : frameForAnimation;
+        if (frameForAnimation < pmAniSpeed + 1) {
+            pacmanSprite.src = arr[0];
+        } else if (frameForAnimation < pmAniSpeed * 2 + 1 || frameForAnimation > pmAniSpeed * 3) {
+            pacmanSprite.src = arr[1];
+        } else {
+            pacmanSprite.src = arr[2];
+        }
+    }
+}
 
 setInterval(main, DT);
-console.log(testNodesVar[4].position[0], testNodesVar[4].position[1]);
