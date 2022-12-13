@@ -165,6 +165,21 @@ function connectVertically(level, nodeList) {
   }
 }
 
+function getStartPosition(level) {
+  let count = 0;
+  for (let y = 0; y < level.sizeY; y++) {
+    for (let x = 0; x < level.sizeX; x++) {
+      let key = null;
+      if (level.pattern[count] === "@") {
+        key = constructKey(x, y);
+        return key;
+      }
+      count += 1;
+    }
+  }
+  return null;
+}
+
 // check for bug
 function removeRedundantConnections(level, nodeList) {
   let maze = convertMazeTo2D(level);
@@ -273,6 +288,7 @@ function createNodeChain(level) {
   connectVertically(level, nodes);
   removeRedundantConnections(level, nodes);
   consolePrintNodes(level, nodes);
+  renderNodes(nodes);
   return nodes;
 }
 let testNodesVar = createNodeChain(LEVEL_0);
