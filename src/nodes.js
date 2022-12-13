@@ -54,19 +54,6 @@ const mazeTest = {
     "########",
 };
 
-function transposeMaze(level) {
-  let tMaze = "";
-  let count = 0;
-  for (let y = 0; y < level.sizeY; y++) {
-    for (let x = 0; x < level.sizeX; x++) {
-      let position = x * level.sizeX + y;
-      tMaze += level.pattern[position];
-    }
-    // tMaze += "\n";
-  }
-  return { sizeX: level.sizeY, sizeY: level.sizeX, pattern: tMaze };
-}
-
 function convertMazeTo2D(level) {
   let newMaze = [];
   let row = [];
@@ -79,6 +66,30 @@ function convertMazeTo2D(level) {
   }
   return newMaze;
 }
+
+function transposeMaze(level) {
+  let maze = convertMazeTo2D(level);
+  let tMaze = [];
+
+  for (let i = 0; i < level.sizeX; i++) {
+    let row = Array(level.sizeY).fill(" . ");
+    tMaze.push(row);
+  }
+
+  for (let y = 0; y < maze.length; y++) {
+    for (let x = 0; x < maze[y].length; x++) {
+      tMaze[x][y] = maze[y][x];
+    }
+  }
+  // console.log(tMaze.map((e) => e.join("")).join("\n"));
+  tMaze = tMaze.map((e) => e.join("")).join("");
+  return {
+    sizeX: level.sizeY,
+    sizeY: level.sizeX,
+    pattern: tMaze,
+  };
+}
+
 //####################################################################
 function constructKey(x, y, dx = RASTER_SIZE, dy = RASTER_SIZE) {
   return { x: x * dx, y: y * dy };
@@ -132,6 +143,7 @@ function connectHorizontally(level, nodeList) {
 
 function connectVertically(level, nodeList) {
   let tMaze = transposeMaze(level);
+
   let count = 0;
   for (let y = 0; y < tMaze.sizeY; y++) {
     let key = null;
@@ -156,8 +168,9 @@ function connectVertically(level, nodeList) {
 // check for bug
 function removeRedundantConnections(level, nodeList) {
   let maze = convertMazeTo2D(level);
-  for (let y = 1; y < maze.length - 1; y++) {
-    for (let x = 1; x < maze[y].length - 1; x++) {
+
+  for (let y = 0; y < maze.length; y++) {
+    for (let x = 0; x < maze[y].length; x++) {
       if (nodeSymbols.includes(maze[y][x])) {
         let key = constructKey(x, y);
         let tempNode = getNodeByCoord(key.x, key.y, nodeList);
@@ -169,10 +182,10 @@ function removeRedundantConnections(level, nodeList) {
           tempNode.left = null;
         }
         if (!pathSymbols.includes(maze[y + 1][x])) {
-          tempNode.up = null;
+          tempNode.down = null;
         }
         if (!pathSymbols.includes(maze[y - 1][x])) {
-          tempNode.down = null;
+          tempNode.up = null;
         }
       }
     }
@@ -183,31 +196,31 @@ function consolePrintNodes(level, nodeList) {
   // console.log(level.sizeX, level.sizeY);
   let nodeArray = [];
   for (let i = 0; i < level.sizeY; i++) {
-    let row = Array(level.sizeX).fill("  ");
+    let row = Array(level.sizeX).fill("   ");
     nodeArray.push(row);
   }
   // console.log(nodeArray);
   let maze = convertMazeTo2D(level);
+  // console.log(maze.map((e) => e.join(" ")).join(" N\n"));
 
-  for (let y = 1; y < maze.length - 1; y++) {
-    for (let x = 1; x < maze[y].length - 1; x++) {
+  for (let y = 0; y < maze.length; y++) {
+    for (let x = 0; x < maze[y].length; x++) {
       if (nodeSymbols.includes(maze[y][x])) {
-        nodeArray[y][x] = "X ";
+        nodeArray[y][x] = " X ";
         let key = constructKey(x, y);
         let tempNode = getNodeByCoord(key.x, key.y, nodeList);
-        console.log(tempNode);
 
         if (tempNode.nodeRight !== null) {
-          nodeArray[y][x + 1] = "- ";
+          nodeArray[y][x + 1] = "-  ";
         }
         if (tempNode.nodeLeft !== null) {
-          nodeArray[y][x - 1] = " -";
+          nodeArray[y][x - 1] = "  -";
         }
         if (tempNode.nodeUp !== null) {
-          nodeArray[y - 1][x] = "| ";
+          nodeArray[y - 1][x] = " | ";
         }
         if (tempNode.nodeDown !== null) {
-          nodeArray[y + 1][x] = "| ";
+          nodeArray[y + 1][x] = " | ";
         }
       }
     }
@@ -250,15 +263,16 @@ function renderNodes(nodesList) {
   }
 }
 
-let testNodesVar = testNodes();
-renderNodes(testNodesVar);
+// let testNodesVar = testNodes();
+// renderNodes(testNodesVar);
 //#####################################################
 
 function createNodeChain(level) {
   let nodes = createNodeTable(level);
   connectHorizontally(level, nodes);
   connectVertically(level, nodes);
-  // removeRedundantConnections(level, nodes);
-  consolePrintNodes(mazeTest, nodes);
+  removeRedundantConnections(level, nodes);
+  consolePrintNodes(level, nodes);
+  return nodes;
 }
-createNodeChain(mazeTest);
+let testNodesVar = createNodeChain(LEVEL_0);

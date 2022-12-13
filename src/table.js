@@ -39,7 +39,7 @@ function createTable(
     for (let x = 0; x < nX * RASTER_SIZE; x += dx) {
       if (sourcePattern[counter] === "#") {
         createTableEl(x, y, WALL_SOURCE);
-      } else if (sourcePattern[counter] === ".") {
+      } else if (palletSymbols.includes(sourcePattern[counter])) {
         createTableEl(x, y, PALLET_SOURCE);
       } else if (sourcePattern[counter] === "X") {
         createTableEl(x, y, PALLET_POW_SOURCE);
@@ -49,4 +49,4 @@ function createTable(
   }
 }
 
-// createTable(LEVEL_PATTERN.sizeX, LEVEL_PATTERN.sizeY, LEVEL_PATTERN.pattern);
+createTable(LEVEL_0.sizeX, LEVEL_0.sizeY, LEVEL_0.pattern);
