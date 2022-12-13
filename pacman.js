@@ -9,19 +9,14 @@ const pacman = document.querySelector("#pacman");
 const pacmanX = pacman.left
 
 let chosenPmMoveDir = "STILL";
+let lastPmMove = "STILL";
 let pmX = 160;
 let pmY = 160;
 let frameForAnimation = 1;
 
-for (let node of nodes) {
-    if (node.position[0] === pmX && node.position[1] === pmY) {
-        console.log("treffer")
-    } console.log("nope")
-}
-// console.log(testNodesVar[3].neighbors[pmMoveDir])
-
 function main() {
-    let pmMoveDir = pacmanValidMove(pmX, pmY, testNodesVar, chosenPmMoveDir)
+    let pmMoveDir = pacmanValidMove(pmX, pmY, testNodesVar, chosenPmMoveDir, lastPmMove)
+    lastPmMove = pmMoveDir;
 
     if (pmMoveDir === "RIGHT") {
         pacmanMovesRight();
@@ -55,7 +50,7 @@ addEventListener("keydown", (event) => {
     }
 })
 
-function pacmanValidMove(pmX, pmY, testNodesVar, chosenPmMoveDir) {
+function pacmanValidMove(pmX, pmY, testNodesVar, chosenPmMoveDir, lastPmMove) {
     let nodeHit = false;
     let neighborGiven = false;
     for (let node of testNodesVar) {
@@ -66,7 +61,11 @@ function pacmanValidMove(pmX, pmY, testNodesVar, chosenPmMoveDir) {
             }
         }
     }
-    return nodeHit === true && neighborGiven === false ? "STILL" : chosenPmMoveDir;
+    if (nodeHit === false) {
+        return chosenPmMoveDir === "RIGHT" && lastPmMove === "LEFT" || chosenPmMoveDir === "LEFT" && lastPmMove === "RIGHT" || chosenPmMoveDir === "UP" && lastPmMove === "DOWN" || chosenPmMoveDir === "DOWN" && lastPmMove === "UP" ? chosenPmMoveDir : lastPmMove;
+    } else if (nodeHit === true) {
+        return neighborGiven === false ? "STILL" : chosenPmMoveDir;
+    }
 }
 
 function pacmanMovesRight() {
