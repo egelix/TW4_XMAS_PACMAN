@@ -24,11 +24,14 @@ function createTableEl(x, y, source) {
   wallEl.style.height = RASTER_SIZE + "px";
   wallEl.style.left = x + "px";
   wallEl.style.top = y + "px";
-  ENTITY_EL.appendChild(wallEl);
+  MAZE_EL.appendChild(wallEl);
 }
 
 function createMaze(nX, nY, sourcePattern, dx = RASTER_SIZE, dy = RASTER_SIZE) {
   let counter = 0;
+
+  MAZE_EL.style.width = nX * dx + "px";
+  MAZE_EL.style.height = nY * dy + "px";
 
   for (let y = 0; y < nY * RASTER_SIZE; y += dy) {
     for (let x = 0; x < nX * RASTER_SIZE; x += dx) {
