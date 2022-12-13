@@ -8,15 +8,21 @@ const DT = 1000/FPS;
 const pacman = document.querySelector("#pacman");
 const pacmanX = pacman.left
 
-// console.log(testNodesVar[0])
-
-let pmMoveDir = "STILL";
+let chosenPmMoveDir = "STILL";
 let pmX = 160;
 let pmY = 160;
-let pmPos = (pmX, pmY)
 let frameForAnimation = 1;
-// pmPos = nodeD;
+
+for (let node of nodes) {
+    if (node.position[0] === pmX && node.position[1] === pmY) {
+        console.log("treffer")
+    } console.log("nope")
+}
+// console.log(testNodesVar[3].neighbors[pmMoveDir])
+
 function main() {
+    let pmMoveDir = pacmanValidMove(pmX, pmY, testNodesVar, chosenPmMoveDir)
+
     if (pmMoveDir === "RIGHT") {
         pacmanMovesRight();
         // pacmanAnimation(pmRightAni);
@@ -32,23 +38,36 @@ function main() {
     } else {
         pacman.style.left = `${pmX}px`
         pacman.style.top = `${pmY}px`
-
+        
     }
-
-    // pacmanAnimation();
+// pacmanAnimation();
 }
 
 addEventListener("keydown", (event) => {
     if (event.key === "d" || event.key === "ArrowRight") {
-        pmMoveDir = "RIGHT";
+        chosenPmMoveDir = "RIGHT";
     } else if (event.key === "a" || event.key === "ArrowLeft") {
-        pmMoveDir = "LEFT";
+        chosenPmMoveDir = "LEFT";
     } else if (event.key === "w" || event.key === "ArrowUp") {
-        pmMoveDir = "UP";
+        chosenPmMoveDir = "UP";
     } else if (event.key === "s" || event.key === "ArrowDown") {
-        pmMoveDir = "DOWN";
+        chosenPmMoveDir = "DOWN";
     }
 })
+
+function pacmanValidMove(pmX, pmY, testNodesVar, chosenPmMoveDir) {
+    let nodeHit = false;
+    let neighborGiven = false;
+    for (let node of testNodesVar) {
+        if (node.position[0] === pmX && node.position[1] === pmY) {
+            nodeHit = true;
+            if (node.neighbors[chosenPmMoveDir] !== null) {
+                neighborGiven = true;
+            }
+        }
+    }
+    return nodeHit === true && neighborGiven === false ? "STILL" : chosenPmMoveDir;
+}
 
 function pacmanMovesRight() {
     pmX += VELOCITY;
@@ -91,6 +110,8 @@ function pacmanMovesDown() {
 //         pacmanSprite.src = arr[2];
 //     }
 // }
-
+// for (let node of testNodesVar) {
+//     console.log(node.position[0], node.position[1], node.neighbors[])
+// }
 setInterval(main, DT)
-
+console.log(testNodesVar[4].position[0], testNodesVar[4].position[1])
