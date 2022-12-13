@@ -1,7 +1,7 @@
 const SPRITE_SIZE = 20;
 const SCREEN_END = 800;
 const SCREEN_START = 0;
-const VELOCITY = 5;
+const VELOCITY = 7;
 const FPS = 60;
 const DT = 1000 / FPS;
 
@@ -15,6 +15,8 @@ let pmY = getStartPosition(LEVEL_0).y;
 let frameForAnimation = 1;
 
 function main() {
+    resetSpritesToNodes(pmX, pmY, testNodesVar, VELOCITY);
+
   let pmMoveDir = pacmanValidMove(
     pmX,
     pmY,
@@ -76,6 +78,17 @@ function pacmanValidMove(pmX, pmY, testNodesVar, chosenPmMoveDir, lastPmMove) {
   } else if (nodeHit === true) {
     return neighborGiven === false ? "STILL" : chosenPmMoveDir;
   }
+}
+
+function resetSpritesToNodes(spriteX, spriteY, testNodesVar, VELOCITY) {
+    for (let node of testNodesVar) {
+        if (spriteX === node.position[0] && spriteY < (node.position[1] + VELOCITY) && spriteY > (node.position[1] - VELOCITY)) {
+            pmY = node.position[1];
+        return
+        } else if (spriteY === node.position[1] && spriteX < (node.position[0] + VELOCITY) && spriteX > (node.position[0] - VELOCITY)) {
+            pmX = node.position[0];
+        }
+    }
 }
 
 function pacmanMovesRight() {
