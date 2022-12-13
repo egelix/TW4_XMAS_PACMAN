@@ -222,9 +222,9 @@ function testNodes() {
   let nodeB = new Node(160, 80);
   let nodeC = new Node(80, 160);
   let nodeD = new Node(160, 160);
-  let nodeE = new Node(208, 160);
+  let nodeE = new Node(200, 160);
   let nodeF = new Node(80, 320);
-  let nodeG = new Node(208, 320);
+  let nodeG = new Node(200, 320);
   nodeA.neighbors["RIGHT"] = nodeB;
   nodeA.neighbors["DOWN"] = nodeC;
   nodeB.neighbors["LEFT"] = nodeA;
