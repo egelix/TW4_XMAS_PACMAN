@@ -24,6 +24,7 @@ class Node {
     this.neighbors.DOWN = newDown;
   }
 }
+// test file
 //8X8
 const nodeSymbols = ["X", "+", "x"];
 const pathSymbols = ["."];
@@ -103,7 +104,9 @@ function connectHorizontally(level, nodeList) {
   }
   return;
 }
-//
+//TEST connect Horizontally
+connectHorizontally(mazeTest, nodes);
+console.log(nodes);
 
 function connectVertically() {
   return;
@@ -142,5 +145,5 @@ function renderNodes(nodesList) {
   }
 }
 
-let testNodes = testNodes();
+let testNodesVar = testNodes();
 renderNodes(testNodes);
