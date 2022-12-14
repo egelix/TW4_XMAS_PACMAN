@@ -11,19 +11,19 @@ class Node {
   get getY() {
     return this.y;
   }
-  get nodeLeft() {
+  get leftNode() {
     return this.neighbors.LEFT;
   }
-  get nodeRight() {
+  get rightNode() {
     return this.neighbors.RIGHT;
   }
-  get nodeUp() {
+  get upNode() {
     return this.neighbors.UP;
   }
-  get nodeDown() {
+  get downNode() {
     return this.neighbors.DOWN;
   }
-  get possibleNeigbourNodes() {
+  get allPossibleNeigbourNodes() {
     let nodesList = [];
     for (const node of Object.values(this.neighbors)) {
       if (node !== null) nodesList.push(node);
@@ -31,7 +31,7 @@ class Node {
     if (nodesList === []) return null;
     return nodesList;
   }
-  get possibleMoves() {
+  get allPossibleMoves() {
     let movesList = [];
     for (const [direction, node] of Object.entries(this.neighbors)) {
       if (node !== null) movesList.push(direction);
@@ -39,13 +39,13 @@ class Node {
     if (movesList === []) return null;
     return movesList;
   }
-  get getRandomMove() {
-    let movesList = this.possibleMoves;
+  get randomMove() {
+    let movesList = this.allPossibleMoves;
     let rMove = movesList[Math.floor(Math.random() * movesList.length)];
     return rMove;
   }
-  get getRandomNode() {
-    let nodeList = this.possibleNeigbourNodes;
+  get randomNode() {
+    let nodeList = this.allPossibleNeigbourNodes;
     let rNode = nodeList[Math.floor(Math.random() * nodeList.length)];
     return rNode;
   }
@@ -223,6 +223,7 @@ function connectVertically(level, nodeList) {
     }
   }
 }
+
 /**
  * @deprecated
  */
@@ -252,6 +253,25 @@ function removeRedundantConnections(level, nodeList) {
   }
 }
 //################ GET PATH FUNCTIONS ############################
+function getDirection(node, [x, y]) {
+  let left = node.getX - x > 0;
+  let right = node.getX - x <= 0;
+  let top = node.getY - y <= 0;
+  let bottom = node.getY - y > 0;
+
+  let countCall = 0;
+  while (countCall < 20) {
+    let move = node.randomMove.toString();
+    // console.log(move);
+    if (left && move === "LEFT") return "LEFT";
+    else if (right && move === "RIGHT") return "RIGHT";
+    else if (top && move === "UP") return "UP";
+    else if (bottom && move === "DOWN") return "DOWN";
+    countCall += 1;
+  }
+
+  return node.randomMove;
+}
 
 //#################### PRINT NODES FUNCTIONS ###########################
 
