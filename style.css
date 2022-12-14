@@ -8,27 +8,34 @@
   box-sizing: inherit; }
 
 html {
+    height: 100%;
     box-sizing: border-box;
 }
 
 body {
-    margin: 0;
-/*     
     display: grid;
-    justify-content: center;
-    align-items: center; */
+    margin: 0;
+    margin-right: 20%;
+    height: 100%;
+    background-image: url("./assets/images/background.jpg");
+    background-size: cover;
+    background-position: bottom right;
 }
 
 #game {
     position: flex;
     flex-direction: column;
-    width: 800px;
-    height: 800px;
+    width: 560px;
+    height: 720px;
     margin: auto;
 }
 #maze {
     position: relative;
     background-color:rgb(167, 167, 167);
+    border: 20px solid rgb(197, 240, 7);
+    border-radius: 10px;
+    box-shadow: 10px 10px 30px rgb(197, 240, 7);
+
 }
 
 .entity {

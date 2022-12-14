@@ -24,10 +24,12 @@ function main() {
       );
       lastPmMove = pmMoveDir;
       
-    mainGhostMovementAndAnimation();
+      pacmanMovementAndAnimation(pmMoveDir);
+
+      
+      mainGhostMovementAndAnimation();
 
 
-    pacmanMovementAndAnimation(pmMoveDir);
     checkIfPacmanEatsPallet(pacmanPos, palletsList);
     displayScore.innerHTML = `Score: ${score}`;
 }
