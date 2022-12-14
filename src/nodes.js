@@ -37,9 +37,7 @@ class Node {
     this.neighbors.DOWN = newDown;
   }
 }
-
 //############## MAZE-STRING FUNCTIONS ##############################
-
 const mazeTest = {
   sizeX: 8,
   sizeY: 8,
@@ -89,11 +87,11 @@ function transposeMaze(level) {
     pattern: tMaze,
   };
 }
-//####################################################################
-//############### NODE - FUNCTIONS ###################################
+//############### NODE POSITIONING FUNCTIONS #########################
 function constructKey(x, y, dx = RASTER_SIZE, dy = RASTER_SIZE) {
   return { x: x * dx, y: y * dy };
 }
+
 function getStartPosition(level, name) {
   switch (name.toLowerCase()) {
     case "pacman":
@@ -109,6 +107,7 @@ function getStartPosition(level, name) {
   }
   return null;
 }
+
 function getStartKey(level, character) {
   let count = 0;
   for (let y = 0; y < level.sizeY; y++) {
@@ -124,7 +123,7 @@ function getStartKey(level, character) {
   return null;
 }
 
-
+//############### NODE CREATION FUNCTIONS #############################
 function createNodeTable(level) {
   let nodeList = [];
   let count = 0;
@@ -198,9 +197,6 @@ function connectVertically(level, nodeList) {
     }
   }
 }
-
-
-
 /**
  * @deprecated
  */
@@ -229,7 +225,49 @@ function removeRedundantConnections(level, nodeList) {
     }
   }
 }
-//########### PRINT NODES FUNCTIONS ##########################
+//################ GET NEXT MOVE FUNCTIONS ############################
+function getRandomNextNode(node) {
+  if (
+    node.nodeUp === null &&
+    node.nodeDown === null &&
+    node.nodeLeft === null &&
+    node.nodeRight === null
+  ) {
+    return null;
+  }
+  let possibleMoves = [
+    node.nodeUp,
+    node.nodeDown,
+    node.nodeLeft,
+    node.nodeRight,
+  ];
+  let newNode = null;
+  while (newNode === null) {
+    newNode = possibleMoves[Math.floor(Math.random() * possibleMoves.length)];
+  }
+  return newNode;
+}
+
+function getRandomNextDirection(node) {
+  if (
+    node.nodeUp === null &&
+    node.nodeDown === null &&
+    node.nodeLeft === null &&
+    node.nodeRight === null
+  ) {
+    return null;
+  }
+  let directions = ("UP", "DOWN", "LEFT", "RIGHT");
+  let newDirectionValue = null;
+  let dir = "";
+  while ((newDirectionValue = null)) {
+    dir = directions[Math.floor(Math.random() * directions.length)];
+    newDirectionValue = node.neighbors[`${dir}`];
+  }
+  console.log(dir);
+  return dir;
+}
+//#################### PRINT NODES FUNCTIONS ###########################
 
 function consolePrintNodes(level, nodeList) {
   // console.log(level.sizeX, level.sizeY);
@@ -276,14 +314,14 @@ function consolePrintNodes(level, nodeList) {
 
   console.log(nodeArray.map((e) => e.join("")).join("\n"));
 }
+
 function renderNodes(nodesList) {
   for (const node of nodesList) {
     createTableEl(node.position[0], node.position[1], PALLET_POW_SOURCE);
   }
 }
-//#####################################################
 
-//########### TEST FUNCTIONS ##########################
+//######################## TEST FUNCTIONS ##############################
 function testNodes() {
   let nodeA = new Node(80, 80);
   let nodeB = new Node(160, 80);
@@ -310,12 +348,23 @@ function testNodes() {
   nodeG.neighbors["LEFT"] = nodeF;
   return [nodeA, nodeB, nodeC, nodeD, nodeE, nodeF, nodeG];
 }
-//#####################################################
+function getRandomNode(nodeList) {
+  let node = nodeList[Math.floor(Math.random() * nodeList.length)];
+  return node;
+}
 
+//################## MAIN CREATE NODE FUNCTION #########################
 function createNodeChain(level) {
   let nodes = createNodeTable(level);
   connectHorizontally(level, nodes);
   connectVertically(level, nodes);
-  consolePrintNodes(level, nodes);
+  // consolePrintNodes(level, nodes);
   return nodes;
 }
+
+//####################### TEST ########################################
+let myNode = getRandomNode(testNodes());
+// console.log(myNode);
+getRandomNextDirection(myNode);
+
+getRandomNextNode(myNode);
