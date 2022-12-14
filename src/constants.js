@@ -32,6 +32,7 @@ const wallSymbols = ["#"];
 const pathSymbols = [".", "="];
 const palletSymbols = [".", "+"];
 const palletsList = [];
+const ghostNames = ["blinky", "pinky", "inky", "clyde"];
 const SPRITE_SIZE = 20;
 const SCREEN_END = 800;
 const SCREEN_START = 0;
