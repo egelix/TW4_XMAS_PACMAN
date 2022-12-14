@@ -39,6 +39,17 @@ class Node {
     if (movesList === []) return null;
     return movesList;
   }
+  get getRandomMove() {
+    let movesList = this.possibleMoves;
+    let rMove = movesList[Math.floor(Math.random() * movesList.length)];
+    return rMove;
+  }
+  get getRandomNode() {
+    let nodeList = this.possibleNeigbourNodes;
+    let rNode = nodeList[Math.floor(Math.random() * nodeList.length)];
+    return rNode;
+  }
+
   set right(newRight) {
     this.neighbors.RIGHT = newRight;
   }
@@ -240,33 +251,8 @@ function removeRedundantConnections(level, nodeList) {
     }
   }
 }
-//################ GET NEXT MOVE FUNCTIONS ############################
-function getRandomNextNode(node) {
-  if (
-    node.nodeUp === null &&
-    node.nodeDown === null &&
-    node.nodeLeft === null &&
-    node.nodeRight === null
-  ) {
-    return null;
-  }
-  let possibleMoves = [
-    node.nodeUp,
-    node.nodeDown,
-    node.nodeLeft,
-    node.nodeRight,
-  ];
-  let newNode = null;
-  while (newNode === null) {
-    newNode = possibleMoves[Math.floor(Math.random() * possibleMoves.length)];
-  }
-  return newNode;
-}
+//################ GET PATH FUNCTIONS ############################
 
-//TODO
-function getRandomNextDirection(node) {
-  return dir;
-}
 //#################### PRINT NODES FUNCTIONS ###########################
 
 function consolePrintNodes(level, nodeList) {
@@ -358,12 +344,10 @@ function createNodeChain(level) {
   let nodes = createNodeTable(level);
   connectHorizontally(level, nodes);
   connectVertically(level, nodes);
-  // consolePrintNodes(level, nodes);
   return nodes;
 }
 
 //####################### TEST ########################################
-let myNode = getRandomNode(testNodes());
-console.log(myNode.possibleMoves);
-console.log(myNode.possibleNeigbourNodes);
+let testNode = getRandomNode(testNodes());
+
 // getRandomNextDirection(myNode);
