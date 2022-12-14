@@ -12,6 +12,12 @@ let blinkyPos = [
   getStartPosition(LEVEL_0, "blinky").y,
 ];
 
+let clyde = [
+    getStartPosition(LEVEL_0, "clyde").x,
+    getStartPosition(LEVEL_0, "clyde").y,
+]
+
+
 function pacmanValidMove(pacmanPos, testNodesVar, chosenPmMoveDir, lastPmMove) {
   let nodeHit = false;
   let neighborGiven = false;
@@ -161,15 +167,12 @@ let score = 0
 function checkIfPacmanEatsPallet(pacmanPos, palletsList) {
     for (let pallet of palletsList) {
         if (pallet["x"] === pacmanPos[0] && pallet["y"] === pacmanPos[1]){
-            console.log(pallet["el"]);
             if (pallet["el"] !== null) {
                 score += 10;
                 const elementToRemove = pallet["el"];
                 elementToRemove.remove();
                 pallet["el"] = null;
             }
-            console.log(pallet["el"])
-            console.log(score);
         }
     }
 }
