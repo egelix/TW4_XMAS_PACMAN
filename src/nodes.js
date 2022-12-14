@@ -225,17 +225,13 @@ function connectVertically(level, nodeList) {
   }
 }
 
-function setUpGhostNode(ghostNode) {
+function alterGhostNodes(maze, nodeList, name) {
+  let ghostPos = getStartPosition(maze, name);
+  let ghostNode = getNodeByCoord(ghostPos.x, ghostPos.y, nodeList);
   ghostNode.left = null;
   ghostNode.right = null;
   ghostNode.down = null;
   ghostNode.upNode.down = null;
-}
-
-function alterGhostNodes(maze, nodeList, name) {
-  let blinkyPos = getStartPosition(maze, name);
-  let blinykNode = getNodeByCoord(blinkyPos.x, blinkyPos.y, nodeList);
-  setUpGhostNode(blinykNode);
 }
 
 /**
