@@ -23,7 +23,22 @@ class Node {
   get nodeDown() {
     return this.neighbors.DOWN;
   }
-
+  get possibleNeigbourNodes() {
+    let nodesList = [];
+    for (const node of Object.values(this.neighbors)) {
+      if (node !== null) nodesList.push(node);
+    }
+    if (nodesList === []) return null;
+    return nodesList;
+  }
+  get possibleMoves() {
+    let movesList = [];
+    for (const [direction, node] of Object.entries(this.neighbors)) {
+      if (node !== null) movesList.push(direction);
+    }
+    if (movesList === []) return null;
+    return movesList;
+  }
   set right(newRight) {
     this.neighbors.RIGHT = newRight;
   }
@@ -248,23 +263,8 @@ function getRandomNextNode(node) {
   return newNode;
 }
 
+//TODO
 function getRandomNextDirection(node) {
-  if (
-    node.nodeUp === null &&
-    node.nodeDown === null &&
-    node.nodeLeft === null &&
-    node.nodeRight === null
-  ) {
-    return null;
-  }
-  let directions = ("UP", "DOWN", "LEFT", "RIGHT");
-  let newDirectionValue = null;
-  let dir = "";
-  while ((newDirectionValue = null)) {
-    dir = directions[Math.floor(Math.random() * directions.length)];
-    newDirectionValue = node.neighbors[`${dir}`];
-  }
-  console.log(dir);
   return dir;
 }
 //#################### PRINT NODES FUNCTIONS ###########################
@@ -364,7 +364,6 @@ function createNodeChain(level) {
 
 //####################### TEST ########################################
 let myNode = getRandomNode(testNodes());
-// console.log(myNode);
-getRandomNextDirection(myNode);
-
-getRandomNextNode(myNode);
+console.log(myNode.possibleMoves);
+console.log(myNode.possibleNeigbourNodes);
+// getRandomNextDirection(myNode);
