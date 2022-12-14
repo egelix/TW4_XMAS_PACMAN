@@ -40,7 +40,7 @@ const GHOST_VELOCITY = 2.5;
 const FPS = 60;
 const DT = 1000 / FPS;
 
-const displayScore = document.querySelector("#score")
+const displayScore = document.querySelector("#score");
 const pacman = document.querySelector("#pacman");
 const blinky = document.querySelector("#blinky");
 
@@ -80,9 +80,9 @@ const LEVEL_0 = {
     "######.#####.##.#####.######" +
     "######.##+..++++..+##.######" +
     "######.##.###==###.##.######" +
-    "######.##.##B++P##.##.######" +
-    "1.....+..+## ++ ##+..+.....1" +
-    "######.##.##I++C##.##.######" +
+    "######.##.## BP ##.##.######" +
+    "1.....+..+## .. ##+..+.....1" +
+    "######.##.## IC ##.##.######" +
     "######.##.########.##.######" +
     "######.##+....@...+##.######" +
     "######.##.########.##.######" +
