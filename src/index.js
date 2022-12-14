@@ -12,8 +12,10 @@ const maze = createMaze(LEVEL_0);
 let testNodesVar = createNodeChain(LEVEL_0);
 renderNodes(testNodesVar);
 
+// console.log(palletsList[0]["el"])
+// let eltest = document.querySelector("")
 
-console.log(palletsList[0]["x"])
+console.log(palletsList)
 
 function main() {
 
@@ -37,6 +39,8 @@ function main() {
 
 
     pacmanMovementAndAnimation(pmMoveDir);
+    checkIfPacmanEatsPallet(pacmanPos, palletsList);
+    displayScore.innerHTML = `Score: ${score}`;
 }
 
 addEventListener("keydown", (event) => {

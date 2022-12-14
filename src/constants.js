@@ -35,11 +35,12 @@ const palletsList = [];
 const SPRITE_SIZE = 20;
 const SCREEN_END = 800;
 const SCREEN_START = 0;
-const VELOCITY = 3;
+const VELOCITY = 2;
 const GHOST_VELOCITY = 2.5;
 const FPS = 60;
 const DT = 1000 / FPS;
 
+const displayScore = document.querySelector("#score")
 const pacman = document.querySelector("#pacman");
 const blinky = document.querySelector("#blinky");
 
