@@ -22,53 +22,6 @@ let blinkyPos = [
   getStartPosition(LEVEL_0, "blinky").x,
   getStartPosition(LEVEL_0, "blinky").y,
 ];
-// blinky.style.left = `${blinkyPos[0]}px`;
-// blinky.style.top = `${blinkyPos[1]}px`;
-
-let frameForAnimation = 1;
-
-function main() {
-  pacmanPos = resetSpritesToNodes(pacmanPos, testNodesVar, VELOCITY);
-  blinkyPos = resetSpritesToNodes(blinkyPos, testNodesVar, GHOST_VELOCITY);
-
-  let pmMoveDir = pacmanValidMove(
-    pacmanPos,
-    testNodesVar,
-    chosenPmMoveDir,
-    lastPmMove
-  );
-  lastPmMove = pmMoveDir;
-
-    blinkyMoveDir = ghostRandomMove(lastBlinkyMove, blinkyPos, testNodesVar);
-    blinkyPos = ghostMovementAndAnimation(blinkyPos, blinkyMoveDir, GHOST_VELOCITY);
-    blinky.style.left = `${blinkyPos[0]}px`;
-    blinky.style.top = `${blinkyPos[1]}px`;
-
-  lastBlinkyMove = blinkyMoveDir;
-
-
-    pacmanMovementAndAnimation(pmMoveDir);
-    console.log(blinkyMoveDir)
-    // console.log(lastBlinkyMove)
-    // console.log(blinkyPos)
-    // console.log(testNodesVar)
-    // console.log(testNodesVar[0])
-    // console.log(blinkyPos[0])
-    // console.log(blinkyPos[1])
-
-}
-
-addEventListener("keydown", (event) => {
-  if (event.key === "d" || event.key === "ArrowRight") {
-    chosenPmMoveDir = "RIGHT";
-  } else if (event.key === "a" || event.key === "ArrowLeft") {
-    chosenPmMoveDir = "LEFT";
-  } else if (event.key === "w" || event.key === "ArrowUp") {
-    chosenPmMoveDir = "UP";
-  } else if (event.key === "s" || event.key === "ArrowDown") {
-    chosenPmMoveDir = "DOWN";
-  }
-});
 
 function pacmanValidMove(pacmanPos, testNodesVar, chosenPmMoveDir, lastPmMove) {
   let nodeHit = false;
@@ -165,6 +118,7 @@ function pacmanMovesDown() {
   pacman.style.top = `${pacmanPos[1]}px`;
 }
 
+let frameForAnimation = 1;
 function pacmanAnimation(arr) {
   const pacmanSprite = document.getElementById("pacman-sprite");
   frameForAnimation += 1;
@@ -205,69 +159,17 @@ function ghostMovementAndAnimation(ghostPos, ghostMoveDir, velocity) {
     let newGhostPos = ghostPos;
     if (ghostMoveDir === "RIGHT") {
         newGhostPos[0] = ghostPos[0] + velocity;
-        // blinky.style.left = `${ghostPos[0]}px`;
       } else if (ghostMoveDir === "LEFT") {
         newGhostPos[0] = ghostPos[0] - velocity;
-        // blinky.style.left = `${ghostPos[0]}px`;
       } else if (ghostMoveDir === "UP") {
         newGhostPos[1] = ghostPos[1] - velocity;
-        // blinky.style.top = `${ghostPos[1]}px`;
       } else if (ghostMoveDir === "DOWN") {
         newGhostPos[1] = ghostPos[1] + velocity;
-        // blinky.style.top = `${ghostPos[1]}px`;
-      } else {
-        // pacmanAnimation();
-      }
+      } 
       return newGhostPos;
 }
 
-setInterval(main, DT);
-
-let possibleMove = [];
-// for (let node of testNodesVar) {
-//     if (blinkyPos[0] === node.position[0] && blinkyPos[1] === node.position[1]) {
-//         for (let neighb in node.neighbors) {
-//             if (node.neighbors[neighb] !== null) {
-//                 possibleMove.push(neighb);
-//             }
-//         }
-//         console.log(possibleMove[Math.floor(Math.random() * possibleMove.length)]);
-//     } else {
-//         // console.log(lastGhostMove);
-//     }
-
-// }
-// for (let node of testNodesVar) {
-//     if (blinkyPos[0] === node.position[0] && blinkyPos[1] === node.position[1]) {
-//         for (let neighb in node.neighbors) {
-//             if (node.neighbors[neighb] !== null) {
-//                 possibleMove.push(neighb);
-//             }
-//         }
-//         console.log(possibleMove[Math.floor(Math.random() * possibleMove.length)]);
-//     } else {
-//         // console.log(lastGhostMove);
-//     }
-
-// }
-// for (let node of testNodesVar) {
-//     if (blinkyPos[0] === node.position[0] && blinkyPos[1] === node.position[1]) {
-//         for (let neighb in node.neighbors) {
-//             if (node.neighbors[neighb] !== null) {
-//                 possibleMove.push(neighb);
-//             }
-//         }
-//         console.log(possibleMove[Math.floor(Math.random() * possibleMove.length)]);
-//     } else {
-//         console.log(lastGhostMove);
-//     }
-
-// }
-
-// // console.log(ghostMovementAndAnimation(blinkyPos, "LEFT"))
-
-// for (let node of testNodesVar) {
-//     console.log(node.position[0])
-// }
-
-// console.log(testNodesVar)
+function checkIfPacmanEatsPallet(pacmanPos, palletsList)
+    for (let pallet of palletsList) {
+        
+    }
