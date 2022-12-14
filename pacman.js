@@ -226,3 +226,15 @@ function mainGhostMovementAndAnimation() {
     clyde.style.top = `${clydePos[1]}px`;
     lastClydeMove = clydeMoveDir;
 };
+
+function checkIfPlayerWon(palletsList) {
+    for (let pallet of palletsList) {
+        if (pallet["el"] !== null) {
+            return false;
+        }
+    } return true;
+};
+
+function winningScreen() {
+    MAZE_EL.insertAdjacentHTML("beforeend", `<img src="./assets/images/Win.png" class="endscreen">`);
+}

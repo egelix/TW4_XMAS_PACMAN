@@ -26,12 +26,15 @@ function main() {
       
       pacmanMovementAndAnimation(pmMoveDir);
 
-      
+
       mainGhostMovementAndAnimation();
 
 
     checkIfPacmanEatsPallet(pacmanPos, palletsList);
     displayScore.innerHTML = `Score: ${score}`;
+    if (checkIfPlayerWon(palletsList) === true) {
+        winningScreen();
+    }
 }
 
 addEventListener("keydown", (event) => {
@@ -49,3 +52,4 @@ addEventListener("keydown", (event) => {
 setInterval(update, DT); 
  */
 setInterval(main, DT);
+winningScreen();

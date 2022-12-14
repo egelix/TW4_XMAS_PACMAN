@@ -10,6 +10,7 @@
 html {
     height: 100%;
     box-sizing: border-box;
+    color: white;
 }
 
 body {
@@ -66,4 +67,8 @@ body {
     width: 15px;
     height: 15px;
     border-radius: 100%;
+}
+
+.endscreen {
+    z-index: 10;
 }
