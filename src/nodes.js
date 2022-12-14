@@ -3,6 +3,7 @@ class Node {
     this.x = x;
     this.y = y;
     this.position = [x, y];
+    this.pacmanSmell = 0;
     this.neighbors = { UP: null, DOWN: null, LEFT: null, RIGHT: null };
   }
   get getX() {
@@ -61,6 +62,26 @@ class Node {
   }
   set down(newDown) {
     this.neighbors.DOWN = newDown;
+  }
+  olderSmell(i = 1) {
+    this.pacmanSmell -= i;
+    if (this.pacmanSmell < 0) this.pacmanSmell = 0;
+    return this.pacmanSmell;
+  }
+  freshSmell(top = 10) {
+    this.pacmanSmell = top;
+    return this.pacmanSmell;
+  }
+  getSmellTrace() {
+    let strongestSmell = 0;
+    let smellDirection = null;
+    for (const [direction, node] of Object.entries(this.neighbors)) {
+      if (node !== null && node.pacmanSmell > strongestSmell) {
+        smellDirection = direction;
+        strongestSmell = node.pacmanSmell;
+      }
+    }
+    return smellDirection;
   }
 }
 //############## MAZE-STRING FUNCTIONS ##############################
@@ -264,7 +285,6 @@ function removeRedundantConnections(level, nodeList) {
 }
 //################ GET PATH FUNCTIONS ############################
 function getDirection(node, [x, y]) {
-  console.log([x, y]);
   let left = node.getX - x > 0;
   let right = node.getX - x <= 0;
   let top = node.getY - y > 0;
@@ -284,6 +304,12 @@ function getDirection(node, [x, y]) {
   return node.randomMove;
 }
 
+function setSmellTrace(node, nodeList) {
+  node.freshSmell();
+  for (const n of nodeList) {
+    n.olderSmell();
+  }
+}
 //#################### PRINT NODES FUNCTIONS ###########################
 
 function consolePrintNodes(level, nodeList) {
@@ -380,6 +406,14 @@ function createNodeChain(level) {
 }
 
 //####################### TEST ########################################
-let testNode = getRandomNode(testNodes());
-
-// getRandomNextDirection(myNode);
+// let testNodesList = testNodes();
+// let testNode = getRandomNode(testNodesList);
+// setSmellTrace(testNode, testNodesList);
+// testNode = getRandomNode(testNodesList);
+// setSmellTrace(testNode, testNodesList);
+// testNode = getRandomNode(testNodesList);
+// setSmellTrace(testNode, testNodesList);
+// testNode = getRandomNode(testNodesList);
+// setSmellTrace(testNode, testNodesList);
+// testNode = getRandomNode(testNodesList);
+// console.log(testNode.getSmellTrace());
