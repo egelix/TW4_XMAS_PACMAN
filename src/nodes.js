@@ -134,6 +134,8 @@ function connectHorizontally(level, nodeList) {
           secondNode.left = firstNode;
           key = otherkey;
         }
+      } else if (wallSymbols.includes(level.pattern[count])) {
+        key = null;
       }
       count += 1;
     }
@@ -159,18 +161,36 @@ function connectVertically(level, nodeList) {
           secondNode.up = firstNode;
           key = otherkey;
         }
+      } else if (wallSymbols.includes(tMaze.pattern[count])) {
+        key = null;
       }
       count += 1;
     }
   }
 }
 
-function getStartPosition(level) {
+function getStartPosition(level, name) {
+  switch (name.toLowerCase()) {
+    case "pacman":
+      return getStartKey(level, "@");
+    case "blinky":
+      return getStartKey(level, "B");
+    case "pinky":
+      return getStartKey(level, "P");
+    case "inky":
+      return getStartKey(level, "I");
+    case "clyde":
+      return getStartKey(level, "C");
+  }
+  return null;
+}
+
+function getStartKey(level, character) {
   let count = 0;
   for (let y = 0; y < level.sizeY; y++) {
     for (let x = 0; x < level.sizeX; x++) {
       let key = null;
-      if (level.pattern[count] === "@") {
+      if (level.pattern[count] === character) {
         key = constructKey(x, y);
         return key;
       }
@@ -180,7 +200,9 @@ function getStartPosition(level) {
   return null;
 }
 
-// check for bug
+/**
+ * @deprecated
+ */
 function removeRedundantConnections(level, nodeList) {
   let maze = convertMazeTo2D(level);
 
@@ -225,16 +247,25 @@ function consolePrintNodes(level, nodeList) {
         let key = constructKey(x, y);
         let tempNode = getNodeByCoord(key.x, key.y, nodeList);
 
-        if (tempNode.nodeRight !== null) {
+        if (
+          tempNode.nodeRight !== null &&
+          pathSymbols.includes(maze[y][x + 1])
+        ) {
           nodeArray[y][x + 1] = "-  ";
         }
-        if (tempNode.nodeLeft !== null) {
+        if (
+          tempNode.nodeLeft !== null &&
+          pathSymbols.includes(maze[y][x - 1])
+        ) {
           nodeArray[y][x - 1] = "  -";
         }
-        if (tempNode.nodeUp !== null) {
+        if (tempNode.nodeUp !== null && pathSymbols.includes(maze[y - 1][x])) {
           nodeArray[y - 1][x] = " | ";
         }
-        if (tempNode.nodeDown !== null) {
+        if (
+          tempNode.nodeDown !== null &&
+          pathSymbols.includes(maze[y + 1][x])
+        ) {
           nodeArray[y + 1][x] = " | ";
         }
       }
@@ -286,9 +317,6 @@ function createNodeChain(level) {
   let nodes = createNodeTable(level);
   connectHorizontally(level, nodes);
   connectVertically(level, nodes);
-  removeRedundantConnections(level, nodes);
   consolePrintNodes(level, nodes);
-  renderNodes(nodes);
   return nodes;
 }
-let testNodesVar = createNodeChain(LEVEL_0);

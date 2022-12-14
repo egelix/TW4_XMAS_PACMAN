@@ -1,21 +1,6 @@
 // create raster 20px - 20px
 // for testing purposes
 
-function createRaster(nX, nY, dx = RASTER_SIZE, dy = RASTER_SIZE) {
-  for (let y = 0; y < nY * RASTER_SIZE; y += dy) {
-    for (let x = 0; x < nX * RASTER_SIZE; x += dx) {
-      let rasterEl = document.createElement("div");
-      rasterEl.style.height = dy + "px";
-      rasterEl.style.width = dx + "px";
-      rasterEl.style.position = "absolute";
-      rasterEl.style.top = y + "px";
-      rasterEl.style.left = x + "px";
-      rasterEl.className = "raster";
-      ENTITY_EL.appendChild(rasterEl);
-    }
-  }
-}
-
 function createTableEl(x, y, source) {
   let wallEl = document.createElement("img");
   wallEl.src = source;
@@ -24,12 +9,15 @@ function createTableEl(x, y, source) {
   wallEl.style.height = RASTER_SIZE + "px";
   wallEl.style.left = x + "px";
   wallEl.style.top = y + "px";
+
   MAZE_EL.appendChild(wallEl);
 }
 
-function createMaze(nX, nY, sourcePattern, dx = RASTER_SIZE, dy = RASTER_SIZE) {
+function createMaze(level, dx = RASTER_SIZE, dy = RASTER_SIZE) {
   let counter = 0;
-
+  let nX = level.sizeX;
+  let nY = level.sizeY;
+  let sourcePattern = level.pattern;
   MAZE_EL.style.width = nX * dx + "px";
   MAZE_EL.style.height = nY * dy + "px";
 
@@ -46,5 +34,3 @@ function createMaze(nX, nY, sourcePattern, dx = RASTER_SIZE, dy = RASTER_SIZE) {
     }
   }
 }
-
-createMaze(LEVEL_0.sizeX, LEVEL_0.sizeY, LEVEL_0.pattern);
