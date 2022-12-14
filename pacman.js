@@ -8,7 +8,6 @@ const DT = 1000 / FPS;
 
 const pacman = document.querySelector("#pacman");
 const blinky = document.querySelector("#blinky")
-// const pacmanX = pacman.left;
 
 let chosenPmMoveDir = "STILL";
 let lastPmMove = "STILL";
@@ -17,10 +16,6 @@ let pacmanPos = [getStartPosition(LEVEL_0).x, getStartPosition(LEVEL_0).y]
 let blinkyMoveDir = "STILL";
 let lastBlinkyMove = "STILL";
 let blinkyPos = [520, 80];
-
-
-// blinky.style.left = `${blinkyPos[0]}px`;
-// blinky.style.top = `${blinkyPos[1]}px`;
 
 let frameForAnimation = 1;
 
@@ -38,12 +33,14 @@ function main() {
   lastPmMove = pmMoveDir;
 
     blinkyMoveDir = ghostRandomMove(lastBlinkyMove, blinkyPos, testNodesVar);
-    ghostMovementAndAnimation(blinkyMoveDir);
+    blinkyPos = ghostMovementAndAnimation(blinkyPos, blinkyMoveDir, VELOCITY);
+    blinky.style.left = `${blinkyPos[0]}px`;
+    blinky.style.top = `${blinkyPos[1]}px`;
 
     lastBlinkyMove = blinkyMoveDir;
 
+
     pacmanMovementAndAnimation(pmMoveDir);
-    console.log(blinkyMoveDir)
 }
 
 addEventListener("keydown", (event) => {
@@ -172,36 +169,79 @@ function ghostRandomMove(lastGhostMove, ghostPos, testNodesVar) {
                         possibleMove.push(neighb);
                     }
                 }
-                // console.log(possibleMove[Math.floor(Math.random() * possibleMove.length)]);
+                return (possibleMove[Math.floor(Math.random() * possibleMove.length)]);
             } else {
-                console.log(lastGhostMove);
+                return lastGhostMove;
             }
 
         }
-    } 
+    } else {
+        return lastGhostMove;
+    }
 }
 
-function ghostMovementAndAnimation(ghostMoveDir) {
+function ghostMovementAndAnimation(ghostPos, ghostMoveDir, VELOCITY) {
+    let newGhostPos = ghostPos;
     if (ghostMoveDir === "RIGHT") {
-        blinkyPos[0] += VELOCITY;
-        blinky.style.left = `${blinkyPos[0]}px`;
+        newGhostPos[0] = ghostPos[0] + VELOCITY;
+        // blinky.style.left = `${ghostPos[0]}px`;
       } else if (ghostMoveDir === "LEFT") {
-        blinkyPos[0] -= VELOCITY;
-        blinky.style.left = `${blinkyPos[0]}px`;
+        newGhostPos[0] = ghostPos[0] - VELOCITY;
+        // blinky.style.left = `${ghostPos[0]}px`;
       } else if (ghostMoveDir === "UP") {
-        blinkyPos[1] -= VELOCITY;
-        blinky.style.top = `${blinkyPos[1]}px`;
+        newGhostPos[1] - VELOCITY;
+        // blinky.style.top = `${ghostPos[1]}px`;
       } else if (ghostMoveDir === "DOWN") {
-        blinkyPos[1] += VELOCITY;
-        blinky.style.top = `${blinkyPos[1]}px`;
+        newGhostPos[1] + VELOCITY;
+        // blinky.style.top = `${ghostPos[1]}px`;
       } else {
-        blinky.style.left = `${blinkyPos[0]}px`;
-        blinky.style.top = `${blinkyPos[1]}px`;
         // pacmanAnimation();
       }
+      return newGhostPos;
 }
 
 setInterval(main, DT);
 
+let possibleMove = [];
+// for (let node of testNodesVar) {
+//     if (blinkyPos[0] === node.position[0] && blinkyPos[1] === node.position[1]) {
+//         for (let neighb in node.neighbors) {
+//             if (node.neighbors[neighb] !== null) {
+//                 possibleMove.push(neighb);
+//             }
+//         }
+//         console.log(possibleMove[Math.floor(Math.random() * possibleMove.length)]);
+//     } else {
+//         // console.log(lastGhostMove);
+//     }
 
+// }
+// for (let node of testNodesVar) {
+//     if (blinkyPos[0] === node.position[0] && blinkyPos[1] === node.position[1]) {
+//         for (let neighb in node.neighbors) {
+//             if (node.neighbors[neighb] !== null) {
+//                 possibleMove.push(neighb);
+//             }
+//         }
+//         console.log(possibleMove[Math.floor(Math.random() * possibleMove.length)]);
+//     } else {
+//         // console.log(lastGhostMove);
+//     }
+
+// }
+for (let node of testNodesVar) {
+    if (blinkyPos[0] === node.position[0] && blinkyPos[1] === node.position[1]) {
+        for (let neighb in node.neighbors) {
+            if (node.neighbors[neighb] !== null) {
+                possibleMove.push(neighb);
+            }
+        }
+        console.log(possibleMove[Math.floor(Math.random() * possibleMove.length)]);
+    } else {
+        // console.log(lastGhostMove);
+    }
+
+}
+
+// // console.log(ghostMovementAndAnimation(blinkyPos, "LEFT"))
 
