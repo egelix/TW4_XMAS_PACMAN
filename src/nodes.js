@@ -118,18 +118,18 @@ function constructKey(x, y, dx = RASTER_SIZE, dy = RASTER_SIZE) {
   return { x: x * dx, y: y * dy };
 }
 
-function getStartPosition(level, name) {
+function getStartPosition(maze, name) {
   switch (name.toLowerCase()) {
     case "pacman":
-      return getStartKey(level, "@");
+      return getStartKey(maze, "@");
     case "blinky":
-      return getStartKey(level, "B");
+      return getStartKey(maze, "B");
     case "pinky":
-      return getStartKey(level, "P");
+      return getStartKey(maze, "P");
     case "inky":
-      return getStartKey(level, "I");
+      return getStartKey(maze, "I");
     case "clyde":
-      return getStartKey(level, "C");
+      return getStartKey(maze, "C");
   }
   return null;
 }
@@ -213,6 +213,7 @@ function connectVertically(level, nodeList) {
           let firstNode = getNodeByCoord(key.x, key.y, nodeList);
           let secondNode = getNodeByCoord(otherkey.x, otherkey.y, nodeList);
           firstNode.down = secondNode;
+
           secondNode.up = firstNode;
           key = otherkey;
         }
@@ -222,6 +223,19 @@ function connectVertically(level, nodeList) {
       count += 1;
     }
   }
+}
+
+function setUpGhostNode(ghostNode) {
+  ghostNode.left = null;
+  ghostNode.right = null;
+  ghostNode.down = null;
+  ghostNode.upNode.down = null;
+}
+
+function alterGhostNodes(maze, nodeList, name) {
+  let blinkyPos = getStartPosition(maze, name);
+  let blinykNode = getNodeByCoord(blinkyPos.x, blinkyPos.y, nodeList);
+  setUpGhostNode(blinykNode);
 }
 
 /**
@@ -254,10 +268,11 @@ function removeRedundantConnections(level, nodeList) {
 }
 //################ GET PATH FUNCTIONS ############################
 function getDirection(node, [x, y]) {
+  console.log([x, y]);
   let left = node.getX - x > 0;
   let right = node.getX - x <= 0;
-  let top = node.getY - y <= 0;
-  let bottom = node.getY - y > 0;
+  let top = node.getY - y > 0;
+  let bottom = node.getY - y < 0;
 
   let countCall = 0;
   while (countCall < 20) {
@@ -364,6 +379,7 @@ function createNodeChain(level) {
   let nodes = createNodeTable(level);
   connectHorizontally(level, nodes);
   connectVertically(level, nodes);
+  ghostNames.map((name) => alterGhostNodes(level, nodes, name));
   return nodes;
 }
 
