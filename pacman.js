@@ -196,7 +196,7 @@ function checkIfPacmanEatsPallet(pacmanPos, palletsList) {
     }
 };
 
-function mainGhostMovement() {
+function mainGhostMovementAndAnimation() {
     blinkyPos = resetSpritesToNodes(blinkyPos, testNodesVar, GHOST_VELOCITY);
     pinkyPos = resetSpritesToNodes(pinkyPos, testNodesVar, GHOST_VELOCITY);
     inkyPos = resetSpritesToNodes(inkyPos, testNodesVar, GHOST_VELOCITY);

@@ -24,7 +24,7 @@ function main() {
       );
       lastPmMove = pmMoveDir;
       
-    mainGhostMovement();
+    mainGhostMovementAndAnimation();
 
 
     pacmanMovementAndAnimation(pmMoveDir);
