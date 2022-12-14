@@ -1,26 +1,26 @@
 const SPRITE_SIZE = 20;
 const SCREEN_END = 800;
 const SCREEN_START = 0;
-const VELOCITY = 2;
+const VELOCITY = 5;
 const FPS = 60;
 const DT = 1000 / FPS;
 
 const pacman = document.querySelector("#pacman");
-const pacmanX = pacman.left;
+// const pacmanX = pacman.left;
 
 let chosenPmMoveDir = "STILL";
 let lastPmMove = "STILL";
-let pmX = getStartPosition(LEVEL_0).x;
-let pmY = getStartPosition(LEVEL_0).y;
+let pacmanPos = [getStartPosition(LEVEL_0).x, getStartPosition(LEVEL_0).y]
+// let pmX = getStartPosition(LEVEL_0).x;
+// let pmY = getStartPosition(LEVEL_0).y;
 let frameForAnimation = 1;
 
 function main() {
     console.log("move")
-    resetSpritesToNodes(pmX, pmY, testNodesVar, VELOCITY);
-
+    pacmanPos = resetSpritesToNodes(pacmanPos, testNodesVar, VELOCITY);
+    console.log(pacmanPos)
   let pmMoveDir = pacmanValidMove(
-    pmX,
-    pmY,
+    pacmanPos,
     testNodesVar,
     chosenPmMoveDir,
     lastPmMove
@@ -40,8 +40,8 @@ function main() {
     pacmanMovesDown();
     pacmanAnimation(pmDownAni);
   } else {
-    pacman.style.left = `${pmX}px`;
-    pacman.style.top = `${pmY}px`;
+    pacman.style.left = `${pacmanPos[0]}px`;
+    pacman.style.top = `${pacmanPos[1]}px`;
     pacmanAnimation();
   }
 }
@@ -58,11 +58,11 @@ addEventListener("keydown", (event) => {
   }
 });
 
-function pacmanValidMove(pmX, pmY, testNodesVar, chosenPmMoveDir, lastPmMove) {
+function pacmanValidMove(pacmanPos, testNodesVar, chosenPmMoveDir, lastPmMove) {
   let nodeHit = false;
   let neighborGiven = false;
   for (let node of testNodesVar) {
-    if (node.position[0] === pmX && node.position[1] === pmY) {
+    if (node.position[0] === pacmanPos[0] && node.position[1] === pacmanPos[1]) {
       nodeHit = true;
       if (node.neighbors[chosenPmMoveDir] !== null) {
         neighborGiven = true;
@@ -81,44 +81,45 @@ function pacmanValidMove(pmX, pmY, testNodesVar, chosenPmMoveDir, lastPmMove) {
   }
 }
 
-function resetSpritesToNodes(spriteX, spriteY, testNodesVar, VELOCITY) {
+function resetSpritesToNodes(spritePos, testNodesVar, VELOCITY) {
+    let corrSpritePos = spritePos;
     for (let node of testNodesVar) {
-        if (spriteX === node.position[0] && spriteY < (node.position[1] + VELOCITY) && spriteY > (node.position[1] - VELOCITY)) {
-            pmY = node.position[1];
-        return
-        } else if (spriteY === node.position[1] && spriteX < (node.position[0] + VELOCITY) && spriteX > (node.position[0] - VELOCITY)) {
-            pmX = node.position[0];
+        if (spritePos[1] === node.position[1] && spritePos[0] < (node.position[0] + VELOCITY) && spritePos[0] > (node.position[0] - VELOCITY)) {
+            corrSpritePos[0] = node.position[0];
+        } else if (spritePos[0] === node.position[0] && spritePos[1] < (node.position[1] + VELOCITY) && spritePos[1] > (node.position[1] - VELOCITY)) {
+            corrSpritePos[1] = node.position[1];
         }
     }
+    return corrSpritePos;
 }
 
 function pacmanMovesRight() {
-  pmX += VELOCITY;
-  if (pmX === SCREEN_END) {
-    pmX = SCREEN_START;
+  pacmanPos[0] += VELOCITY;
+  if (pacmanPos[0] === SCREEN_END) {
+    pacmanPos[0] = SCREEN_START;
   }
-  pacman.style.left = `${pmX}px`;
+  pacman.style.left = `${pacmanPos[0]}px`;
 }
 function pacmanMovesLeft() {
-  pmX -= VELOCITY;
-  if (pmX === SCREEN_START - SPRITE_SIZE) {
-    pmX = SCREEN_END - SPRITE_SIZE;
+    pacmanPos[0] -= VELOCITY;
+  if (pacmanPos[0] === SCREEN_START - SPRITE_SIZE) {
+    pacmanPos[0] = SCREEN_END - SPRITE_SIZE;
   }
-  pacman.style.left = `${pmX}px`;
+  pacman.style.left = `${pacmanPos[0]}px`;
 }
 function pacmanMovesUp() {
-  pmY -= VELOCITY;
-  if (pmY === SCREEN_START - SPRITE_SIZE) {
-    pmY = SCREEN_END - SPRITE_SIZE;
+    pacmanPos[1] -= VELOCITY;
+  if (pacmanPos[1] === SCREEN_START - SPRITE_SIZE) {
+    pacmanPos[1] = SCREEN_END - SPRITE_SIZE;
   }
-  pacman.style.top = `${pmY}px`;
+  pacman.style.top = `${pacmanPos[1]}px`;
 }
 function pacmanMovesDown() {
-  pmY += VELOCITY;
-  if (pmY === SCREEN_END) {
-    pmY = SCREEN_START;
+    pacmanPos[1] += VELOCITY;
+  if (pacmanPos[1] === SCREEN_END) {
+    pacmanPos[1] = SCREEN_START;
   }
-  pacman.style.top = `${pmY}px`;
+  pacman.style.top = `${pacmanPos[1]}px`;
 }
 
 function pacmanAnimation(arr) {
