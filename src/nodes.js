@@ -89,11 +89,41 @@ function transposeMaze(level) {
     pattern: tMaze,
   };
 }
-
 //####################################################################
+//############### NODE - FUNCTIONS ###################################
 function constructKey(x, y, dx = RASTER_SIZE, dy = RASTER_SIZE) {
   return { x: x * dx, y: y * dy };
 }
+function getStartPosition(level, name) {
+  switch (name.toLowerCase()) {
+    case "pacman":
+      return getStartKey(level, "@");
+    case "blinky":
+      return getStartKey(level, "B");
+    case "pinky":
+      return getStartKey(level, "P");
+    case "inky":
+      return getStartKey(level, "I");
+    case "clyde":
+      return getStartKey(level, "C");
+  }
+  return null;
+}
+function getStartKey(level, character) {
+  let count = 0;
+  for (let y = 0; y < level.sizeY; y++) {
+    for (let x = 0; x < level.sizeX; x++) {
+      let key = null;
+      if (level.pattern[count] === character) {
+        key = constructKey(x, y);
+        return key;
+      }
+      count += 1;
+    }
+  }
+  return null;
+}
+
 
 function createNodeTable(level) {
   let nodeList = [];
@@ -169,36 +199,7 @@ function connectVertically(level, nodeList) {
   }
 }
 
-function getStartPosition(level, name) {
-  switch (name.toLowerCase()) {
-    case "pacman":
-      return getStartKey(level, "@");
-    case "blinky":
-      return getStartKey(level, "B");
-    case "pinky":
-      return getStartKey(level, "P");
-    case "inky":
-      return getStartKey(level, "I");
-    case "clyde":
-      return getStartKey(level, "C");
-  }
-  return null;
-}
 
-function getStartKey(level, character) {
-  let count = 0;
-  for (let y = 0; y < level.sizeY; y++) {
-    for (let x = 0; x < level.sizeX; x++) {
-      let key = null;
-      if (level.pattern[count] === character) {
-        key = constructKey(x, y);
-        return key;
-      }
-      count += 1;
-    }
-  }
-  return null;
-}
 
 /**
  * @deprecated
@@ -228,6 +229,7 @@ function removeRedundantConnections(level, nodeList) {
     }
   }
 }
+//########### PRINT NODES FUNCTIONS ##########################
 
 function consolePrintNodes(level, nodeList) {
   // console.log(level.sizeX, level.sizeY);
@@ -274,6 +276,12 @@ function consolePrintNodes(level, nodeList) {
 
   console.log(nodeArray.map((e) => e.join("")).join("\n"));
 }
+function renderNodes(nodesList) {
+  for (const node of nodesList) {
+    createTableEl(node.position[0], node.position[1], PALLET_POW_SOURCE);
+  }
+}
+//#####################################################
 
 //########### TEST FUNCTIONS ##########################
 function testNodes() {
@@ -302,15 +310,6 @@ function testNodes() {
   nodeG.neighbors["LEFT"] = nodeF;
   return [nodeA, nodeB, nodeC, nodeD, nodeE, nodeF, nodeG];
 }
-
-function renderNodes(nodesList) {
-  for (const node of nodesList) {
-    createTableEl(node.position[0], node.position[1], PALLET_POW_SOURCE);
-  }
-}
-
-// let testNodesVar = testNodes();
-// renderNodes(testNodesVar);
 //#####################################################
 
 function createNodeChain(level) {
