@@ -12,6 +12,9 @@ const maze = createMaze(LEVEL_0);
 let testNodesVar = createNodeChain(LEVEL_0);
 renderNodes(testNodesVar);
 
+
+console.log(palletsList[0]["x"])
+
 function main() {
 
   pacmanPos = resetSpritesToNodes(pacmanPos, testNodesVar, VELOCITY);
