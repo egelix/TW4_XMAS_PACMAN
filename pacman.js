@@ -2,6 +2,7 @@ const SPRITE_SIZE = 20;
 const SCREEN_END = 800;
 const SCREEN_START = 0;
 const VELOCITY = 5;
+const GHOST_VELOCITY = 4;
 const FPS = 60;
 const DT = 1000 / FPS;
 
@@ -12,9 +13,15 @@ const blinky = document.querySelector("#blinky")
 let chosenPmMoveDir = "STILL";
 let lastPmMove = "STILL";
 let pacmanPos = [getStartPosition(LEVEL_0).x, getStartPosition(LEVEL_0).y]
+
+let blinkyMoveDir = "STILL";
+let lastBlinkyMove = "STILL";
 let blinkyPos = [520, 80];
-// let pmX = getStartPosition(LEVEL_0).x;
-// let pmY = getStartPosition(LEVEL_0).y;
+
+
+// blinky.style.left = `${blinkyPos[0]}px`;
+// blinky.style.top = `${blinkyPos[1]}px`;
+
 let frameForAnimation = 1;
 
 
@@ -30,7 +37,13 @@ function main() {
   );
   lastPmMove = pmMoveDir;
 
+    blinkyMoveDir = ghostRandomMove(lastBlinkyMove, blinkyPos, testNodesVar);
+    ghostMovementAndAnimation(blinkyMoveDir);
+
+    lastBlinkyMove = blinkyMoveDir;
+
     pacmanMovementAndAnimation(pmMoveDir);
+    console.log(blinkyMoveDir)
 }
 
 addEventListener("keydown", (event) => {
@@ -147,12 +160,48 @@ function pacmanAnimation(arr) {
     }
 }
 
-function ghostRandomMove(ghostPos, testNodesVar) {
-    let framesFortMoveStart = 0;
-    framesFortMoveStart += 1;
-    if (framesFortMoveStart > 80) {
+let framesForMoveStart = 0;
+function ghostRandomMove(lastGhostMove, ghostPos, testNodesVar) {
+    framesForMoveStart += 1;
+    let possibleMove = [];
+    if (framesForMoveStart > 80) {
+        for (let node of testNodesVar) {
+            if (ghostPos[0] === node.position[0] && ghostPos[1] === node.position[1]) {
+                for (let neighb in node.neighbors) {
+                    if (node.neighbors[neighb] !== null) {
+                        possibleMove.push(neighb);
+                    }
+                }
+                // console.log(possibleMove[Math.floor(Math.random() * possibleMove.length)]);
+            } else {
+                console.log(lastGhostMove);
+            }
 
-    }
+        }
+    } 
+}
+
+function ghostMovementAndAnimation(ghostMoveDir) {
+    if (ghostMoveDir === "RIGHT") {
+        blinkyPos[0] += VELOCITY;
+        blinky.style.left = `${blinkyPos[0]}px`;
+      } else if (ghostMoveDir === "LEFT") {
+        blinkyPos[0] -= VELOCITY;
+        blinky.style.left = `${blinkyPos[0]}px`;
+      } else if (ghostMoveDir === "UP") {
+        blinkyPos[1] -= VELOCITY;
+        blinky.style.top = `${blinkyPos[1]}px`;
+      } else if (ghostMoveDir === "DOWN") {
+        blinkyPos[1] += VELOCITY;
+        blinky.style.top = `${blinkyPos[1]}px`;
+      } else {
+        blinky.style.left = `${blinkyPos[0]}px`;
+        blinky.style.top = `${blinkyPos[1]}px`;
+        // pacmanAnimation();
+      }
 }
 
 setInterval(main, DT);
+
+
+
