@@ -12,30 +12,19 @@ const maze = createMaze(LEVEL_0);
 let testNodesVar = createNodeChain(LEVEL_0);
 renderNodes(testNodesVar);
 
-// console.log(palletsList[0]["el"])
-// let eltest = document.querySelector("")
-
-console.log(palletsList)
-
 function main() {
 
   pacmanPos = resetSpritesToNodes(pacmanPos, testNodesVar, VELOCITY);
-  blinkyPos = resetSpritesToNodes(blinkyPos, testNodesVar, GHOST_VELOCITY);
-
+  
   let pmMoveDir = pacmanValidMove(
-    pacmanPos,
-    testNodesVar,
-    chosenPmMoveDir,
-    lastPmMove
-  );
-  lastPmMove = pmMoveDir;
-
-    blinkyMoveDir = ghostRandomMove(lastBlinkyMove, blinkyPos, testNodesVar);
-    blinkyPos = ghostMovementAndAnimation(blinkyPos, blinkyMoveDir, GHOST_VELOCITY);
-    blinky.style.left = `${blinkyPos[0]}px`;
-    blinky.style.top = `${blinkyPos[1]}px`;
-
-  lastBlinkyMove = blinkyMoveDir;
+      pacmanPos,
+      testNodesVar,
+      chosenPmMoveDir,
+      lastPmMove
+      );
+      lastPmMove = pmMoveDir;
+      
+    mainGhostMovement();
 
 
     pacmanMovementAndAnimation(pmMoveDir);

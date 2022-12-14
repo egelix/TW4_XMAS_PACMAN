@@ -26,6 +26,30 @@ const pmDownAni = [
   "./assets/images/pacman/pacman-down/pacman-down-1.png",
   "./assets/images/pacman/pacman-down/pacman-down-2.png",
 ];
+const blinkyAni = [
+  "./assets/images/ghosts/ghost-blinky-up.png",
+  "./assets/images/ghosts/ghost-blinky-right.png",
+  "./assets/images/ghosts/ghost-blinky-down.png",
+  "./assets/images/ghosts/ghost-blinky-left.png"
+];
+const pinkyAni = [
+  "./assets/images/ghosts/ghost-pinky-up.png",
+  "./assets/images/ghosts/ghost-pinky-right.png",
+  "./assets/images/ghosts/ghost-pinky-down.png",
+  "./assets/images/ghosts/ghost-pinky-left.png"
+];
+const inkyAni = [
+  "./assets/images/ghosts/ghost-inky-up.png",
+  "./assets/images/ghosts/ghost-inky-right.png",
+  "./assets/images/ghosts/ghost-inky-down.png",
+  "./assets/images/ghosts/ghost-inky-left.png"
+];
+const clydeAni = [
+  "./assets/images/ghosts/ghost-clyde-up.png",
+  "./assets/images/ghosts/ghost-clyde-right.png",
+  "./assets/images/ghosts/ghost-clyde-down.png",
+  "./assets/images/ghosts/ghost-clyde-left.png",
+];
 const pmAniSpeed = 15;
 const nodeSymbols = ["X", "+", "x", "@", "B", "P", "I", "C", "1"];
 const wallSymbols = ["#"];
@@ -43,7 +67,10 @@ const DT = 1000 / FPS;
 
 const displayScore = document.querySelector("#score");
 const pacman = document.querySelector("#pacman");
-const blinky = document.querySelector("#blinky");
+const blinkySprite = document.querySelector("#blinky-sprite");
+const pinkySprite = document.querySelector("#pinky-sprite");
+const inkySprite = document.querySelector("#inky-sprite");
+const clydeSprite = document.querySelector("#clyde-sprite");
 
 const LEVEL_PATTERN = {
   sizeX: 20,

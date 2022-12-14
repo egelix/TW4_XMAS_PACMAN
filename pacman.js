@@ -12,11 +12,26 @@ let blinkyPos = [
   getStartPosition(LEVEL_0, "blinky").y,
 ];
 
-let clyde = [
+let pinkyMoveDir = "STILL";
+let lastPinkyMove = "STILL";
+let pinkyPos = [
+    getStartPosition(LEVEL_0, "pinky").x,
+    getStartPosition(LEVEL_0, "pinky").y,
+];
+
+let inkyMoveDir = "STILL";
+let lastInkyMove = "STILL";
+let inkyPos = [
+    getStartPosition(LEVEL_0, "inky").x,
+    getStartPosition(LEVEL_0, "inky").y,
+];
+
+let clydeMoveDir = "STILL";
+let lastClydeMove = "STILL";
+let clydePos = [
     getStartPosition(LEVEL_0, "clyde").x,
     getStartPosition(LEVEL_0, "clyde").y,
-]
-
+];
 
 function pacmanValidMove(pacmanPos, testNodesVar, chosenPmMoveDir, lastPmMove) {
   let nodeHit = false;
@@ -150,16 +165,20 @@ function ghostRandomMove(lastGhostMove, ghostPos, testNodesVar) {
     } return lastGhostMove;
 }
 
-function ghostMovementAndAnimation(ghostPos, ghostMoveDir, velocity) {
+function ghostMovementAndAnimation(ghostSprite, ghostPos, ghostMoveDir, velocity, ghostImgArr) {
     let newGhostPos = ghostPos;
     if (ghostMoveDir === "RIGHT") {
         newGhostPos[0] = ghostPos[0] + velocity;
+        ghostSprite.src = ghostImgArr[1];
       } else if (ghostMoveDir === "LEFT") {
         newGhostPos[0] = ghostPos[0] - velocity;
+        ghostSprite.src = ghostImgArr[3];
       } else if (ghostMoveDir === "UP") {
         newGhostPos[1] = ghostPos[1] - velocity;
+        ghostSprite.src = ghostImgArr[0];
       } else if (ghostMoveDir === "DOWN") {
         newGhostPos[1] = ghostPos[1] + velocity;
+        ghostSprite.src = ghostImgArr[2];
       } 
       return newGhostPos;
 }
@@ -175,4 +194,35 @@ function checkIfPacmanEatsPallet(pacmanPos, palletsList) {
             }
         }
     }
-}
+};
+
+function mainGhostMovement() {
+    blinkyPos = resetSpritesToNodes(blinkyPos, testNodesVar, GHOST_VELOCITY);
+    pinkyPos = resetSpritesToNodes(pinkyPos, testNodesVar, GHOST_VELOCITY);
+    inkyPos = resetSpritesToNodes(inkyPos, testNodesVar, GHOST_VELOCITY);
+    clydePos = resetSpritesToNodes(clydePos, testNodesVar, GHOST_VELOCITY);
+
+    blinkyMoveDir = ghostRandomMove(lastBlinkyMove, blinkyPos, testNodesVar);
+    blinkyPos = ghostMovementAndAnimation(blinkySprite, blinkyPos, blinkyMoveDir, GHOST_VELOCITY, blinkyAni);
+    blinky.style.left = `${blinkyPos[0]}px`;
+    blinky.style.top = `${blinkyPos[1]}px`;
+    lastBlinkyMove = blinkyMoveDir;
+
+    pinkyMoveDir = ghostRandomMove(lastPinkyMove, pinkyPos, testNodesVar);
+    pinkyPos = ghostMovementAndAnimation(pinkySprite, pinkyPos, pinkyMoveDir, GHOST_VELOCITY, pinkyAni);
+    pinky.style.left = `${pinkyPos[0]}px`;
+    pinky.style.top = `${pinkyPos[1]}px`;
+    lastPinkyMove = pinkyMoveDir;
+
+    inkyMoveDir = ghostRandomMove(lastInkyMove, inkyPos, testNodesVar);
+    inkyPos = ghostMovementAndAnimation(inkySprite, inkyPos, inkyMoveDir, GHOST_VELOCITY, inkyAni);
+    inky.style.left = `${inkyPos[0]}px`;
+    inky.style.top = `${inkyPos[1]}px`;
+    lastInkyMove = inkyMoveDir;
+
+    clydeMoveDir = ghostRandomMove(lastClydeMove, clydePos, testNodesVar);
+    clydePos = ghostMovementAndAnimation(clydeSprite, clydePos, clydeMoveDir, GHOST_VELOCITY, clydeAni);
+    clyde.style.left = `${clydePos[0]}px`;
+    clyde.style.top = `${clydePos[1]}px`;
+    lastClydeMove = clydeMoveDir;
+};
