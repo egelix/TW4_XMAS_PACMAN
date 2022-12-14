@@ -31,6 +31,7 @@ const nodeSymbols = ["X", "+", "x", "@", "B", "P", "I", "C", "1"];
 const wallSymbols = ["#"];
 const pathSymbols = [".", "="];
 const palletSymbols = [".", "+"];
+const palletsList = [];
 
 const LEVEL_PATTERN = {
   sizeX: 20,

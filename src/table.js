@@ -11,6 +11,7 @@ function createTableEl(x, y, source) {
   wallEl.style.top = y + "px";
 
   MAZE_EL.appendChild(wallEl);
+  return wallEl;
 }
 
 function createMaze(level, dx = RASTER_SIZE, dy = RASTER_SIZE) {
@@ -26,7 +27,12 @@ function createMaze(level, dx = RASTER_SIZE, dy = RASTER_SIZE) {
       if (sourcePattern[counter] === "#") {
         createTableEl(x, y, WALL_SOURCE);
       } else if (palletSymbols.includes(sourcePattern[counter])) {
-        createTableEl(x, y, PALLET_SOURCE);
+        let pallet = {
+          x: x,
+          y: y,
+          el: createTableEl(x, y, PALLET_SOURCE),
+        };
+        palletsList.push(pallet);
       } else if (sourcePattern[counter] === "X") {
         createTableEl(x, y, PALLET_POW_SOURCE);
       }
