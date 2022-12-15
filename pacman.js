@@ -256,6 +256,7 @@ function checkIfPlayerLost(lives) {
     }
 }
 function losingScreen() {
+  
     MAZE_EL.insertAdjacentHTML("beforeend", `<img src="./assets/images/Lose.png" class="endscreen">`);
 
 }

@@ -68,6 +68,7 @@ body {
     border-radius: 100%;
 }
 
-/* .endscreen {
-    z-index: ;
-} */
+.endscreen {
+    position: absolute;
+    z-index: 2;
+}
