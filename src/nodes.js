@@ -4,7 +4,12 @@ class Node {
     this.y = y;
     this.position = [x, y];
     this.pacmanSmell = 0;
-    this.neighbors = { UP: null, DOWN: null, LEFT: null, RIGHT: null };
+    this.neighbors = {
+      UP: null,
+      DOWN: null,
+      LEFT: null,
+      RIGHT: null,
+    };
   }
   get getX() {
     return this.x;
@@ -63,7 +68,7 @@ class Node {
   set down(newDown) {
     this.neighbors.DOWN = newDown;
   }
-  olderSmell(i = 1) {
+  decreaseSmell(i = 1) {
     this.pacmanSmell -= i;
     if (this.pacmanSmell < 0) this.pacmanSmell = 0;
     return this.pacmanSmell;
@@ -293,7 +298,6 @@ function getDirection(node, [x, y]) {
   let countCall = 0;
   while (countCall < 20) {
     let move = node.randomMove.toString();
-    // console.log(move);
     if (left && move === "LEFT") return "LEFT";
     else if (right && move === "RIGHT") return "RIGHT";
     else if (top && move === "UP") return "UP";
@@ -307,7 +311,7 @@ function getDirection(node, [x, y]) {
 function setSmellTrace(node, nodeList) {
   node.freshSmell();
   for (const n of nodeList) {
-    n.olderSmell();
+    n.decreaseSmell();
   }
 }
 //#################### PRINT NODES FUNCTIONS ###########################
@@ -396,7 +400,7 @@ function getRandomNode(nodeList) {
   return node;
 }
 
-//################## MAIN CREATE NODE FUNCTION #########################
+//################## MAIN CREATE NODE CHAIN FUNCTION #########################
 function createNodeChain(level) {
   let nodes = createNodeTable(level);
   connectHorizontally(level, nodes);
