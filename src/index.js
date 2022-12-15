@@ -15,43 +15,51 @@ let borderBlinkSpeed = 850;
 let lives = 3;
 
 function main() {
+  pacmanPos = resetSpritesToNodes(pacmanPos, testNodesVar, VELOCITY);
 
-    
-    pacmanPos = resetSpritesToNodes(pacmanPos, testNodesVar, VELOCITY);
-    
-    let pmMoveDir = pacmanValidMove(
-        pacmanPos,
-        testNodesVar,
-        chosenPmMoveDir,
-        lastPmMove
-        );
-        lastPmMove = pmMoveDir;
-        
-        pacmanMovementAndAnimation(pmMoveDir);
-        
-        
-        mainGhostMovementAndAnimation();
-        
-        
-        checkIfPacmanEatsPallet(pacmanPos, palletsList);
-        displayScore.innerHTML = `Score: ${score}`;
-        if (checkIfPlayerWon(palletsList) === true) {
-        borderBlinkSpeed = 300;
-        winningScreen();
-        }
+  let pmMoveDir = pacmanValidMove(
+    pacmanPos,
+    testNodesVar,
+    chosenPmMoveDir,
+    lastPmMove
+  );
+  lastPmMove = pmMoveDir;
 
-        if (checkIfPacmanTouchesGhosts(pacmanPos, blinkyPos, pinkyPos, inkyPos, clydePos) === true) {
-            lives -= 1;
-            pacmanPos = [getStartPosition(LEVEL_0, "pacman").x, getStartPosition(LEVEL_0, "pacman").y];
-            pmMoveDir = "STILL";
-        }
-        displayLives.innerHTML = `Lives: ${lives}`;
-        if (checkIfPlayerLost(lives) === true) {
-            // borderEl.style["box-shadow"] = "rgb(32, 32, 32) 10px 10px 30px";
-            borderBlinkSpeed = 0;
-            losingScreen();
-        }
-};
+  pacmanMovementAndAnimation(pmMoveDir);
+
+  mainGhostMovementAndAnimation();
+
+  checkIfPacmanEatsPallet(pacmanPos, palletsList);
+  displayScore.innerHTML = `Score: ${score}`;
+  if (checkIfPlayerWon(palletsList) === true) {
+    borderBlinkSpeed = 300;
+    winningScreen();
+  }
+
+  if (
+    checkIfPacmanTouchesGhosts(
+      pacmanPos,
+      blinkyPos,
+      pinkyPos,
+      inkyPos,
+      clydePos
+    ) === true
+  ) {
+    lives -= 1;
+    pacmanPos = [
+      getStartPosition(LEVEL_0, "pacman").x,
+      getStartPosition(LEVEL_0, "pacman").y,
+    ];
+    pmMoveDir = "STILL";
+  }
+  displayLives.innerHTML = `Lives: ${lives}`;
+  if (checkIfPlayerLost(lives) === true) {
+    // borderEl.style["box-shadow"] = "rgb(32, 32, 32) 10px 10px 30px";
+    borderBlinkSpeed = 0;
+    clearInterval(mainId);
+    losingScreen();
+  }
+}
 
 addEventListener("keydown", (event) => {
   if (event.key === "d" || event.key === "ArrowRight") {
@@ -67,5 +75,5 @@ addEventListener("keydown", (event) => {
 /*
 setInterval(update, DT); 
  */
-setInterval(main, DT);
-setInterval(borderBlink, borderBlinkSpeed)
+const mainId = setInterval(main, DT);
+setInterval(borderBlink, borderBlinkSpeed);
