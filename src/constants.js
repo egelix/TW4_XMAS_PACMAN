@@ -68,7 +68,7 @@ const ghostNames = ["blinky", "pinky", "inky", "clyde"];
 const SPRITE_SIZE = 20;
 const SCREEN_END = 800;
 const SCREEN_START = 0;
-const VELOCITY = 2;
+const VELOCITY = 4;
 const GHOST_VELOCITY = 2.5;
 const FPS = 60;
 const DT = 1000 / FPS;
@@ -80,7 +80,7 @@ const blinkySprite = document.querySelector("#blinky-sprite");
 const pinkySprite = document.querySelector("#pinky-sprite");
 const inkySprite = document.querySelector("#inky-sprite");
 const clydeSprite = document.querySelector("#clyde-sprite");
-var gameMode = "FRIGHT";
+var gameMode = "CHASE";
 let borderEl = document.querySelector("#maze");
 
 const LEVEL_PATTERN = {

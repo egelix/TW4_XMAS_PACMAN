@@ -210,6 +210,18 @@ function checkIfPacmanEatsPallet(pacmanPos, palletsList) {
         }
     }
 };
+function checkIfPacmanEatsPowerPallet(pacmanPos, powerPalletsList) {
+  for (let pallet of powerPalletsList) {
+      if (pallet["x"] === pacmanPos[0] && pallet["y"] === pacmanPos[1]){
+          if (pallet["el"] !== null) {
+              score += 50;
+              const elementToRemove = pallet["el"];
+              elementToRemove.remove();
+              pallet["el"] = null;
+          }
+      }
+  }
+};
 
 function checkIfPacmanTouchesGhosts(pacmanPos, blinkyPos, pinkyPos, inkyPos, clydePos) {
     let ghostsPos = [blinkyPos, pinkyPos, inkyPos, clydePos];
