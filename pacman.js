@@ -246,6 +246,8 @@ function ghostEatsPacman() {
   ];
 };
 function pacmanEatsGhost() {
+  ghostsEatenForScore += 1;
+  score += 200 * ghostsEatenForScore;
   if (blinkyPos === eatenGhost) {
   blinkyPos = [
   getStartPosition(LEVEL_0, "blinky").x,
