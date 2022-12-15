@@ -246,13 +246,22 @@ function checkIfPlayerWon(palletsList) {
         }
     } return true;
 };
+function winningScreen() {
+    MAZE_EL.insertAdjacentHTML("beforeend", `<img src="./assets/images/Win.png" class="endscreen">`);
+};
+
+function checkIfPlayerLost(lives) {
+    if (lives < 1) { 
+        return true;
+    }
+}
+function losingScreen() {
+    MAZE_EL.insertAdjacentHTML("beforeend", `<img src="./assets/images/Lose.png" class="endscreen">`);
+
+}
 
 function borderBlink() {
     let borderEl = document.querySelector("#maze");
     borderEl.style.border = borderEl.style.border === "20px solid rgb(197, 240, 7)" ? "20px solid rgb(32, 32, 32)" : "20px solid rgb(197, 240, 7)";
     borderEl.style["box-shadow"] = borderEl.style["box-shadow"] === "rgb(197, 240, 7) 10px 10px 30px" ? "rgb(32, 32, 32) 10px 10px 30px" : "rgb(197, 240, 7) 10px 10px 30px";
-};
-
-function winningScreen() {
-    MAZE_EL.insertAdjacentHTML("beforeend", `<img src="./assets/images/Win.png" class="endscreen">`);
 };

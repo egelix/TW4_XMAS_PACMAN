@@ -16,35 +16,41 @@ let lives = 3;
 
 function main() {
 
-    if (checkIfPacmanTouchesGhosts(pacmanPos, blinkyPos, pinkyPos, inkyPos, clydePos) === true) {
-        lives -= 1;
-        pacmanPos = [getStartPosition(LEVEL_0, "pacman").x, getStartPosition(LEVEL_0, "pacman").y];
-        // pmMoveDir = "STILL";
-    }
-
-  pacmanPos = resetSpritesToNodes(pacmanPos, testNodesVar, VELOCITY);
-  
-  let pmMoveDir = pacmanValidMove(
-      pacmanPos,
-      testNodesVar,
-      chosenPmMoveDir,
-      lastPmMove
-      );
-      lastPmMove = pmMoveDir;
-      
-      pacmanMovementAndAnimation(pmMoveDir);
-
-
-      mainGhostMovementAndAnimation();
-
-
-    checkIfPacmanEatsPallet(pacmanPos, palletsList);
-    displayScore.innerHTML = `Score: ${score}`;
-    displayLives.innerHTML = `Lives: ${lives}`;
-    if (checkIfPlayerWon(palletsList) === true) {
+    
+    pacmanPos = resetSpritesToNodes(pacmanPos, testNodesVar, VELOCITY);
+    
+    let pmMoveDir = pacmanValidMove(
+        pacmanPos,
+        testNodesVar,
+        chosenPmMoveDir,
+        lastPmMove
+        );
+        lastPmMove = pmMoveDir;
+        
+        pacmanMovementAndAnimation(pmMoveDir);
+        
+        
+        mainGhostMovementAndAnimation();
+        
+        
+        checkIfPacmanEatsPallet(pacmanPos, palletsList);
+        displayScore.innerHTML = `Score: ${score}`;
+        if (checkIfPlayerWon(palletsList) === true) {
         borderBlinkSpeed = 300;
         winningScreen();
-    }
+        }
+
+        if (checkIfPacmanTouchesGhosts(pacmanPos, blinkyPos, pinkyPos, inkyPos, clydePos) === true) {
+            lives -= 1;
+            pacmanPos = [getStartPosition(LEVEL_0, "pacman").x, getStartPosition(LEVEL_0, "pacman").y];
+            pmMoveDir = "STILL";
+        }
+        displayLives.innerHTML = `Lives: ${lives}`;
+        if (checkIfPlayerLost(lives) === true) {
+            // borderEl.style["box-shadow"] = "rgb(32, 32, 32) 10px 10px 30px";
+            borderBlinkSpeed = 0;
+            losingScreen();
+        }
 };
 
 addEventListener("keydown", (event) => {
