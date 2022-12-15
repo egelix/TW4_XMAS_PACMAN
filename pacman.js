@@ -239,7 +239,7 @@ function mainGhostMovementAndAnimation() {
     pinkyMoveDir = ghostChaseMove(lastPinkyMove, pinkyPos, testNodesVar, pacmanPos);
     inkyMoveDir = ghostChaseMove(lastInkyMove, inkyPos, testNodesVar, pacmanPos);
     clydeMoveDir = ghostChaseMove(lastClydeMove, clydePos, testNodesVar, pacmanPos);
-  } else if (gameMode === "Fright") {
+  } else if (gameMode === "FRIGHT") {
     blinkyMoveDir = ghostRandomMove(lastBlinkyMove, blinkyPos, testNodesVar);
     pinkyMoveDir = ghostRandomMove(lastPinkyMove, pinkyPos, testNodesVar);
     inkyMoveDir = ghostRandomMove(lastInkyMove, inkyPos, testNodesVar);
@@ -268,6 +268,9 @@ function mainGhostMovementAndAnimation() {
 
     if (gameMode === "FRIGHT") {
       blinkySprite.src = "./assets/images/ghosts/ghost-fright.png";
+      pinkySprite.src = "./assets/images/ghosts/ghost-fright.png";
+      inkySprite.src = "./assets/images/ghosts/ghost-fright.png";
+      clydeSprite.src = "./assets/images/ghosts/ghost-fright.png";
     }
 };
 
