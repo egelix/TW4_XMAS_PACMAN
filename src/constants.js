@@ -8,6 +8,12 @@ const PALLET_SOURCE = "./assets/images/pellet/pellet.png";
 const PALLET_POW_SOURCE = "../assets/images/pellet/power-pellet.png";
 const BORDER_BLINK_SPEED = 1000;
 const BORDER_BLINK_WINNING = 200;
+
+const BLINKY_CORNER = [800, 0];
+const PINKY_CORNER = [0, 0];
+const INKY_CORNER = [800, 800];
+const CLYDE_CORNER = [0, 800];
+
 const pmRightAni = [
   "./assets/images/pacman/pacman-0.png",
   "./assets/images/pacman/pacman-right/pacman-right-1.png",
