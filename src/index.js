@@ -1,17 +1,7 @@
-/* 
-const PACMAN = createSprite("pacman");
-const BLINKY = createSprite("blinky");
-const PINKY = createSprite("pinky");
-const INKY = createSprite("inky");
-const CLYDE = createSprite("clyde");
-
-let testNodesVar = createNodeChain(LEVEL_0);
-
-*/
 const maze = createMaze(LEVEL_0);
 let testNodesVar = createNodeChain(LEVEL_0);
-// renderNodes(testNodesVar);
 let lives = 3;
+let gameModeDuration = SCATTER_DURATION;
 
 function main() {
   pacmanPos = resetSpritesToNodes(pacmanPos, testNodesVar, VELOCITY);
@@ -32,6 +22,16 @@ function main() {
 
   if (checkIfPacmanEatsPowerPallet(pacmanPos, palletsPowList)) {
     gameMode = "FRIGHT";
+
+    clearTimeout(gameStartTimer);
+    gameModeDuration = FRIGHT_DURATION;
+
+    gameStartTimer = setTimeout(function GameOn() {
+      gameMode = gameMode !== "SCATTER" ? "SCATTER" : "CHASE";
+      gameModeDuration =
+        gameMode === "SCATTER" ? SCATTER_DURATION : CHASE_DURATION;
+      gameStartTimer = setTimeout(GameOn, gameModeDuration);
+    }, gameModeDuration);
   }
 
   displayScore.innerHTML = `Score: ${score}`;
@@ -71,8 +71,14 @@ addEventListener("keydown", (event) => {
     chosenPmMoveDir = "DOWN";
   }
 });
-/*
-setInterval(update, DT); 
- */
+
+// ####### INTERVAL TIMEOUT FUNKTION ########################
+gameStartTimer = setTimeout(function GameOn() {
+  gameModeDuration = gameMode === "SCATTER" ? SCATTER_DURATION : CHASE_DURATION;
+  gameMode = gameMode === "SCATTER" ? "CHASE" : "SCATTER";
+  gameStartTimer = setTimeout(GameOn, gameModeDuration);
+}, gameModeDuration);
+
+setInterval(() => console.log("1"), 1000);
 const mainId = setInterval(main, DT);
 const borderId = setInterval(borderBlink, BORDER_BLINK_SPEED);

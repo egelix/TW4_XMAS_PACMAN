@@ -73,6 +73,9 @@ const VELOCITY = 4;
 const GHOST_VELOCITY = 2.5;
 const FPS = 60;
 const DT = 1000 / FPS;
+const FRIGHT_DURATION = 7000;
+const SCATTER_DURATION = 7000;
+const CHASE_DURATION = 20000;
 
 const displayScore = document.querySelector("#score");
 const displayLives = document.querySelector("#lives");
@@ -81,7 +84,7 @@ const blinkySprite = document.querySelector("#blinky-sprite");
 const pinkySprite = document.querySelector("#pinky-sprite");
 const inkySprite = document.querySelector("#inky-sprite");
 const clydeSprite = document.querySelector("#clyde-sprite");
-var gameMode = "CHASE";
+var gameMode = "SCATTER";
 let borderEl = document.querySelector("#maze");
 
 const LEVEL_PATTERN = {
@@ -115,7 +118,7 @@ const LEVEL_0 = {
     "#+....+..+..+..+..+..+....+#" +
     "#.####.##.########.##.####.#" +
     "#.####.##.########.##.####.#" +
-    "#X....+##+..+##+..+##+....X#" +
+    "#+....+##+..+##+..+##+....+#" +
     "######.#####.##.#####.######" +
     "######.#####.##.#####.######" +
     "######.##+..++++..+##.######" +
@@ -127,7 +130,7 @@ const LEVEL_0 = {
     "######.##+....@...+##.######" +
     "######.##.########.##.######" +
     "######.##.########.##.######" +
-    "#X....+..+..+##+..+..+....X#" +
+    "#+....+..+..+##+..+..+....+#" +
     "#.####.#####.##.#####.####.#" +
     "#.####.#####.##.#####.####.#" +
     "#+.+##+..+..+..+..+..+##+.+#" +
