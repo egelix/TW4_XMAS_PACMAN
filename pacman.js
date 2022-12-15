@@ -231,14 +231,14 @@ function mainGhostMovementAndAnimation() {
   
   if (gameMode === "SCATTER") {
     blinkyMoveDir = ghostScatterMove(lastBlinkyMove, blinkyPos, testNodesVar, BLINKY_CORNER);
-    pinkyMoveDir = ghostRandomMove(lastPinkyMove, pinkyPos, testNodesVar);
-    inkyMoveDir = ghostRandomMove(lastInkyMove, inkyPos, testNodesVar);
-    clydeMoveDir = ghostRandomMove(lastClydeMove, clydePos, testNodesVar);
+    pinkyMoveDir = ghostScatterMove(lastPinkyMove, pinkyPos, testNodesVar, PINKY_CORNER);
+    inkyMoveDir = ghostScatterMove(lastInkyMove, inkyPos, testNodesVar, INKY_CORNER);
+    clydeMoveDir = ghostScatterMove(lastClydeMove, clydePos, testNodesVar, CLYDE_CORNER);
   } else if (gameMode === "CHASE") {
     blinkyMoveDir = ghostChaseMove(lastBlinkyMove, blinkyPos, testNodesVar, pacmanPos);
-    pinkyMoveDir = ghostRandomMove(lastPinkyMove, pinkyPos, testNodesVar);
-    inkyMoveDir = ghostRandomMove(lastInkyMove, inkyPos, testNodesVar);
-    clydeMoveDir = ghostRandomMove(lastClydeMove, clydePos, testNodesVar);
+    pinkyMoveDir = ghostChaseMove(lastPinkyMove, pinkyPos, testNodesVar, pacmanPos);
+    inkyMoveDir = ghostChaseMove(lastInkyMove, inkyPos, testNodesVar, pacmanPos);
+    clydeMoveDir = ghostChaseMove(lastClydeMove, clydePos, testNodesVar, pacmanPos);
   } else if (gameMode === "Fright") {
     blinkyMoveDir = ghostRandomMove(lastBlinkyMove, blinkyPos, testNodesVar);
     pinkyMoveDir = ghostRandomMove(lastPinkyMove, pinkyPos, testNodesVar);
