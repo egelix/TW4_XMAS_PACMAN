@@ -86,6 +86,7 @@ const inkySprite = document.querySelector("#inky-sprite");
 const clydeSprite = document.querySelector("#clyde-sprite");
 var gameMode = "SCATTER";
 let borderEl = document.querySelector("#maze");
+let eatenGhost;
 
 const LEVEL_PATTERN = {
   sizeX: 20,

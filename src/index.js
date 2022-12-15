@@ -39,15 +39,14 @@ function main() {
     endGameWhenWon();
   }
 
-  if (
-    checkIfPacmanTouchesGhosts(
+  eatenGhost = checkIfPacmanTouchesGhosts(
       pacmanPos,
       blinkyPos,
       pinkyPos,
       inkyPos,
       clydePos
-    ) === true
-  ) {
+    ) 
+  if (eatenGhost !== 0) {
     if (gameMode === "FRIGHT") {
       pacmanEatsGhost();
     } else {

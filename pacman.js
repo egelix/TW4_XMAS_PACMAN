@@ -228,25 +228,45 @@ function checkIfPacmanTouchesGhosts(pacmanPos, blinkyPos, pinkyPos, inkyPos, cly
     let ghostsPos = [blinkyPos, pinkyPos, inkyPos, clydePos];
     for (let ghost of ghostsPos) {
         if (ghost[0] === pacmanPos[0] && ghost[1] < pacmanPos[1] + RASTER_SIZE && ghost[1] > pacmanPos[1] - RASTER_SIZE) {
-            return true;
+            return ghost;
         } else if (ghost[1] === pacmanPos[1] && ghost[0] < pacmanPos[0] + RASTER_SIZE && ghost[0] > pacmanPos[0] - RASTER_SIZE) {
-            return true;
+            return ghost;
         } 
     }
-    return false;
+    return 0;
 }
 
 function ghostEatsPacman() {
   lives -= 1;
+  lastPmMove = "STILL";
+  pmMoveDir = "STILL";
   pacmanPos = [
     getStartPosition(LEVEL_0, "pacman").x,
     getStartPosition(LEVEL_0, "pacman").y,
   ];
-  lastPmMove = "STILL";
-  pmMoveDir = "STILL";
 };
 function pacmanEatsGhost() {
-  
+  if (blinkyPos === eatenGhost) {
+  blinkyPos = [
+  getStartPosition(LEVEL_0, "blinky").x,
+  getStartPosition(LEVEL_0, "blinky").y,
+  ];
+} else if (pinkyPos === eatenGhost) {
+  pinkyPos = [
+  getStartPosition(LEVEL_0, "pinky").x,
+  getStartPosition(LEVEL_0, "pinky").y,
+  ];
+} else if (inkyPos === eatenGhost) {
+  inkyPos = [
+  getStartPosition(LEVEL_0, "inky").x,
+  getStartPosition(LEVEL_0, "inky").y,
+  ];
+} else if (clydePos === eatenGhost) {
+  clydePos = [
+  getStartPosition(LEVEL_0, "clyde").x,
+  getStartPosition(LEVEL_0, "clyde").y,
+  ];
+}
 }
 
 function mainGhostMovementAndAnimation() {
