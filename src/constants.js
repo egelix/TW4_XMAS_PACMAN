@@ -87,7 +87,7 @@ const clydeSprite = document.querySelector("#clyde-sprite");
 var gameMode = "SCATTER";
 let borderEl = document.querySelector("#maze");
 let eatenGhost;
-let ghostsEatenForScore = 0;
+let frightScore = 100;
 
 const LEVEL_PATTERN = {
   sizeX: 20,

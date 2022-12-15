@@ -30,7 +30,7 @@ function main() {
       gameMode = gameMode !== "SCATTER" ? "SCATTER" : "CHASE";
       gameModeDuration =
         gameMode === "SCATTER" ? SCATTER_DURATION : CHASE_DURATION;
-        ghostsEatenForScore = 0;
+        frightScore = 100;
       gameStartTimer = setTimeout(GameOn, gameModeDuration);
     }, gameModeDuration);
   }

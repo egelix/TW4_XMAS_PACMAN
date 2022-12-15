@@ -246,8 +246,9 @@ function ghostEatsPacman() {
   ];
 };
 function pacmanEatsGhost() {
-  ghostsEatenForScore += 1;
-  score += 200 * ghostsEatenForScore;
+  let scoreToAdd = frightScore * 2;
+  frightScore = scoreToAdd;
+  score += scoreToAdd;
   if (blinkyPos === eatenGhost) {
   blinkyPos = [
   getStartPosition(LEVEL_0, "blinky").x,
