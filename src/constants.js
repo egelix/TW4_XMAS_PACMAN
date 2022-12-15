@@ -6,6 +6,7 @@ const MAZE_EL = document.getElementById("maze");
 const WALL_SOURCE = "./assets/images/wall.png";
 const PALLET_SOURCE = "./assets/images/pellet/pellet.png";
 const PALLET_POW_SOURCE = "../assets/images/pellet/power-pellet.png";
+const BORDER_BLINK_SPEED = 1000;
 const pmRightAni = [
   "./assets/images/pacman/pacman-0.png",
   "./assets/images/pacman/pacman-right/pacman-right-1.png",
@@ -72,6 +73,7 @@ const blinkySprite = document.querySelector("#blinky-sprite");
 const pinkySprite = document.querySelector("#pinky-sprite");
 const inkySprite = document.querySelector("#inky-sprite");
 const clydeSprite = document.querySelector("#clyde-sprite");
+let borderEl = document.querySelector("#maze");
 
 const LEVEL_PATTERN = {
   sizeX: 20,

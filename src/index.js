@@ -11,7 +11,6 @@ let testNodesVar = createNodeChain(LEVEL_0);
 const maze = createMaze(LEVEL_0);
 let testNodesVar = createNodeChain(LEVEL_0);
 renderNodes(testNodesVar);
-let borderBlinkSpeed = 850;
 let lives = 3;
 
 function main() {
@@ -32,8 +31,7 @@ function main() {
   checkIfPacmanEatsPallet(pacmanPos, palletsList);
   displayScore.innerHTML = `Score: ${score}`;
   if (checkIfPlayerWon(palletsList) === true) {
-    borderBlinkSpeed = 300;
-    winningScreen();
+    endGameWhenWon();
   }
 
   if (
@@ -54,10 +52,7 @@ function main() {
   }
   displayLives.innerHTML = `Lives: ${lives}`;
   if (checkIfPlayerLost(lives) === true) {
-    // borderEl.style["box-shadow"] = "rgb(32, 32, 32) 10px 10px 30px";
-    borderBlinkSpeed = 0;
-    clearInterval(mainId);
-    losingScreen();
+    endGameWhenLost();
   }
 }
 
@@ -76,4 +71,4 @@ addEventListener("keydown", (event) => {
 setInterval(update, DT); 
  */
 const mainId = setInterval(main, DT);
-setInterval(borderBlink, borderBlinkSpeed);
+const borderId = setInterval(borderBlink, BORDER_BLINK_SPEED);

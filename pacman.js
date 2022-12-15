@@ -246,6 +246,14 @@ function checkIfPlayerWon(palletsList) {
         }
     } return true;
 };
+
+function endGameWhenWon() {
+  clearInterval(mainId);
+  clearInterval(borderId);
+  winningScreen();
+  setInterval(borderBlink, BORDER_BLINK_WINNING);
+}
+
 function winningScreen() {
     MAZE_EL.insertAdjacentHTML("beforeend", `<img src="./assets/images/Win.png" class="endscreen">`);
 };
@@ -255,6 +263,14 @@ function checkIfPlayerLost(lives) {
         return true;
     }
 }
+function endGameWhenLost() {
+  clearInterval(mainId);
+  clearInterval(borderId);
+  borderEl.style["box-shadow"] = "rgb(32, 32, 32) 10px 10px 30px";
+  losingScreen();
+  setInterval(mainGhostMovementAndAnimation, DT);
+}
+
 function losingScreen() {
   
     MAZE_EL.insertAdjacentHTML("beforeend", `<img src="./assets/images/Lose.png" class="endscreen">`);
