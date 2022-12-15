@@ -74,6 +74,7 @@ const blinkySprite = document.querySelector("#blinky-sprite");
 const pinkySprite = document.querySelector("#pinky-sprite");
 const inkySprite = document.querySelector("#inky-sprite");
 const clydeSprite = document.querySelector("#clyde-sprite");
+var gameMode = "SCATTER";
 let borderEl = document.querySelector("#maze");
 
 const LEVEL_PATTERN = {
