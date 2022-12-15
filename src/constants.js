@@ -30,19 +30,19 @@ const blinkyAni = [
   "./assets/images/ghosts/ghost-blinky-up.png",
   "./assets/images/ghosts/ghost-blinky-right.png",
   "./assets/images/ghosts/ghost-blinky-down.png",
-  "./assets/images/ghosts/ghost-blinky-left.png"
+  "./assets/images/ghosts/ghost-blinky-left.png",
 ];
 const pinkyAni = [
   "./assets/images/ghosts/ghost-pinky-up.png",
   "./assets/images/ghosts/ghost-pinky-right.png",
   "./assets/images/ghosts/ghost-pinky-down.png",
-  "./assets/images/ghosts/ghost-pinky-left.png"
+  "./assets/images/ghosts/ghost-pinky-left.png",
 ];
 const inkyAni = [
   "./assets/images/ghosts/ghost-inky-up.png",
   "./assets/images/ghosts/ghost-inky-right.png",
   "./assets/images/ghosts/ghost-inky-down.png",
-  "./assets/images/ghosts/ghost-inky-left.png"
+  "./assets/images/ghosts/ghost-inky-left.png",
 ];
 const clydeAni = [
   "./assets/images/ghosts/ghost-clyde-up.png",
@@ -110,7 +110,7 @@ const LEVEL_0 = {
     "######.##+..++++..+##.######" +
     "######.##.###==###.##.######" +
     "######.##.## BP ##.##.######" +
-    "1.....+..+## .. ##+..+.....1" +
+    "1.....+..+## == ##+..+.....1" +
     "######.##.## IC ##.##.######" +
     "######.##.########.##.######" +
     "######.##+....@...+##.######" +
