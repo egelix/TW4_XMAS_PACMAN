@@ -11,37 +11,47 @@ let testNodesVar = createNodeChain(LEVEL_0);
 const maze = createMaze(LEVEL_0);
 let testNodesVar = createNodeChain(LEVEL_0);
 renderNodes(testNodesVar);
-
-// console.log(palletsList[0]["el"])
-// let eltest = document.querySelector("")
-
-console.log(palletsList)
+let borderBlinkSpeed = 850;
+let lives = 3;
 
 function main() {
 
-  pacmanPos = resetSpritesToNodes(pacmanPos, testNodesVar, VELOCITY);
-  blinkyPos = resetSpritesToNodes(blinkyPos, testNodesVar, GHOST_VELOCITY);
+    
+    pacmanPos = resetSpritesToNodes(pacmanPos, testNodesVar, VELOCITY);
+    
+    let pmMoveDir = pacmanValidMove(
+        pacmanPos,
+        testNodesVar,
+        chosenPmMoveDir,
+        lastPmMove
+        );
+        lastPmMove = pmMoveDir;
+        
+        pacmanMovementAndAnimation(pmMoveDir);
+        
+        
+        mainGhostMovementAndAnimation();
+        
+        
+        checkIfPacmanEatsPallet(pacmanPos, palletsList);
+        displayScore.innerHTML = `Score: ${score}`;
+        if (checkIfPlayerWon(palletsList) === true) {
+        borderBlinkSpeed = 300;
+        winningScreen();
+        }
 
-  let pmMoveDir = pacmanValidMove(
-    pacmanPos,
-    testNodesVar,
-    chosenPmMoveDir,
-    lastPmMove
-  );
-  lastPmMove = pmMoveDir;
-
-    blinkyMoveDir = ghostRandomMove(lastBlinkyMove, blinkyPos, testNodesVar);
-    blinkyPos = ghostMovementAndAnimation(blinkyPos, blinkyMoveDir, GHOST_VELOCITY);
-    blinky.style.left = `${blinkyPos[0]}px`;
-    blinky.style.top = `${blinkyPos[1]}px`;
-
-  lastBlinkyMove = blinkyMoveDir;
-
-
-    pacmanMovementAndAnimation(pmMoveDir);
-    checkIfPacmanEatsPallet(pacmanPos, palletsList);
-    displayScore.innerHTML = `Score: ${score}`;
-}
+        if (checkIfPacmanTouchesGhosts(pacmanPos, blinkyPos, pinkyPos, inkyPos, clydePos) === true) {
+            lives -= 1;
+            pacmanPos = [getStartPosition(LEVEL_0, "pacman").x, getStartPosition(LEVEL_0, "pacman").y];
+            pmMoveDir = "STILL";
+        }
+        displayLives.innerHTML = `Lives: ${lives}`;
+        if (checkIfPlayerLost(lives) === true) {
+            // borderEl.style["box-shadow"] = "rgb(32, 32, 32) 10px 10px 30px";
+            borderBlinkSpeed = 0;
+            losingScreen();
+        }
+};
 
 addEventListener("keydown", (event) => {
   if (event.key === "d" || event.key === "ArrowRight") {
@@ -58,3 +68,4 @@ addEventListener("keydown", (event) => {
 setInterval(update, DT); 
  */
 setInterval(main, DT);
+setInterval(borderBlink, borderBlinkSpeed)

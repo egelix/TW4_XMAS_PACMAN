@@ -12,11 +12,26 @@ let blinkyPos = [
   getStartPosition(LEVEL_0, "blinky").y,
 ];
 
-let clyde = [
+let pinkyMoveDir = "STILL";
+let lastPinkyMove = "STILL";
+let pinkyPos = [
+    getStartPosition(LEVEL_0, "pinky").x,
+    getStartPosition(LEVEL_0, "pinky").y,
+];
+
+let inkyMoveDir = "STILL";
+let lastInkyMove = "STILL";
+let inkyPos = [
+    getStartPosition(LEVEL_0, "inky").x,
+    getStartPosition(LEVEL_0, "inky").y,
+];
+
+let clydeMoveDir = "STILL";
+let lastClydeMove = "STILL";
+let clydePos = [
     getStartPosition(LEVEL_0, "clyde").x,
     getStartPosition(LEVEL_0, "clyde").y,
-]
-
+];
 
 function pacmanValidMove(pacmanPos, testNodesVar, chosenPmMoveDir, lastPmMove) {
   let nodeHit = false;
@@ -150,16 +165,20 @@ function ghostRandomMove(lastGhostMove, ghostPos, testNodesVar) {
     } return lastGhostMove;
 }
 
-function ghostMovementAndAnimation(ghostPos, ghostMoveDir, velocity) {
+function ghostMovementAndAnimation(ghostSprite, ghostPos, ghostMoveDir, velocity, ghostImgArr) {
     let newGhostPos = ghostPos;
     if (ghostMoveDir === "RIGHT") {
         newGhostPos[0] = ghostPos[0] + velocity;
+        ghostSprite.src = ghostImgArr[1];
       } else if (ghostMoveDir === "LEFT") {
         newGhostPos[0] = ghostPos[0] - velocity;
+        ghostSprite.src = ghostImgArr[3];
       } else if (ghostMoveDir === "UP") {
         newGhostPos[1] = ghostPos[1] - velocity;
+        ghostSprite.src = ghostImgArr[0];
       } else if (ghostMoveDir === "DOWN") {
         newGhostPos[1] = ghostPos[1] + velocity;
+        ghostSprite.src = ghostImgArr[2];
       } 
       return newGhostPos;
 }
@@ -175,4 +194,74 @@ function checkIfPacmanEatsPallet(pacmanPos, palletsList) {
             }
         }
     }
+};
+
+function checkIfPacmanTouchesGhosts(pacmanPos, blinkyPos, pinkyPos, inkyPos, clydePos) {
+    let ghostsPos = [blinkyPos, pinkyPos, inkyPos, clydePos];
+    for (let ghost of ghostsPos) {
+        if (ghost[0] === pacmanPos[0] && ghost[1] < pacmanPos[1] + RASTER_SIZE && ghost[1] > pacmanPos[1] - RASTER_SIZE) {
+            return true;
+        } else if (ghost[1] === pacmanPos[1] && ghost[0] < pacmanPos[0] + RASTER_SIZE && ghost[0] > pacmanPos[0] - RASTER_SIZE) {
+            return true;
+        } 
+    }
+    return false;
 }
+
+function mainGhostMovementAndAnimation() {
+    blinkyPos = resetSpritesToNodes(blinkyPos, testNodesVar, GHOST_VELOCITY);
+    pinkyPos = resetSpritesToNodes(pinkyPos, testNodesVar, GHOST_VELOCITY);
+    inkyPos = resetSpritesToNodes(inkyPos, testNodesVar, GHOST_VELOCITY);
+    clydePos = resetSpritesToNodes(clydePos, testNodesVar, GHOST_VELOCITY);
+
+    blinkyMoveDir = ghostRandomMove(lastBlinkyMove, blinkyPos, testNodesVar);
+    blinkyPos = ghostMovementAndAnimation(blinkySprite, blinkyPos, blinkyMoveDir, GHOST_VELOCITY, blinkyAni);
+    blinky.style.left = `${blinkyPos[0]}px`;
+    blinky.style.top = `${blinkyPos[1]}px`;
+    lastBlinkyMove = blinkyMoveDir;
+
+    pinkyMoveDir = ghostRandomMove(lastPinkyMove, pinkyPos, testNodesVar);
+    pinkyPos = ghostMovementAndAnimation(pinkySprite, pinkyPos, pinkyMoveDir, GHOST_VELOCITY, pinkyAni);
+    pinky.style.left = `${pinkyPos[0]}px`;
+    pinky.style.top = `${pinkyPos[1]}px`;
+    lastPinkyMove = pinkyMoveDir;
+
+    inkyMoveDir = ghostRandomMove(lastInkyMove, inkyPos, testNodesVar);
+    inkyPos = ghostMovementAndAnimation(inkySprite, inkyPos, inkyMoveDir, GHOST_VELOCITY, inkyAni);
+    inky.style.left = `${inkyPos[0]}px`;
+    inky.style.top = `${inkyPos[1]}px`;
+    lastInkyMove = inkyMoveDir;
+
+    clydeMoveDir = ghostRandomMove(lastClydeMove, clydePos, testNodesVar);
+    clydePos = ghostMovementAndAnimation(clydeSprite, clydePos, clydeMoveDir, GHOST_VELOCITY, clydeAni);
+    clyde.style.left = `${clydePos[0]}px`;
+    clyde.style.top = `${clydePos[1]}px`;
+    lastClydeMove = clydeMoveDir;
+};
+
+function checkIfPlayerWon(palletsList) {
+    for (let pallet of palletsList) {
+        if (pallet["el"] !== null) {
+            return false;
+        }
+    } return true;
+};
+function winningScreen() {
+    MAZE_EL.insertAdjacentHTML("beforeend", `<img src="./assets/images/Win.png" class="endscreen">`);
+};
+
+function checkIfPlayerLost(lives) {
+    if (lives < 1) { 
+        return true;
+    }
+}
+function losingScreen() {
+    MAZE_EL.insertAdjacentHTML("beforeend", `<img src="./assets/images/Lose.png" class="endscreen">`);
+
+}
+
+function borderBlink() {
+    let borderEl = document.querySelector("#maze");
+    borderEl.style.border = borderEl.style.border === "20px solid rgb(197, 240, 7)" ? "20px solid rgb(32, 32, 32)" : "20px solid rgb(197, 240, 7)";
+    borderEl.style["box-shadow"] = borderEl.style["box-shadow"] === "rgb(197, 240, 7) 10px 10px 30px" ? "rgb(32, 32, 32) 10px 10px 30px" : "rgb(197, 240, 7) 10px 10px 30px";
+};
