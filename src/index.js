@@ -11,8 +11,16 @@ let testNodesVar = createNodeChain(LEVEL_0);
 const maze = createMaze(LEVEL_0);
 let testNodesVar = createNodeChain(LEVEL_0);
 renderNodes(testNodesVar);
+let borderBlinkSpeed = 850;
+let lives = 3;
 
 function main() {
+
+    if (checkIfPacmanTouchesGhosts(pacmanPos, blinkyPos, pinkyPos, inkyPos, clydePos) === true) {
+        lives -= 1;
+        pacmanPos = [getStartPosition(LEVEL_0, "pacman").x, getStartPosition(LEVEL_0, "pacman").y];
+        // pmMoveDir = "STILL";
+    }
 
   pacmanPos = resetSpritesToNodes(pacmanPos, testNodesVar, VELOCITY);
   
@@ -32,10 +40,12 @@ function main() {
 
     checkIfPacmanEatsPallet(pacmanPos, palletsList);
     displayScore.innerHTML = `Score: ${score}`;
+    displayLives.innerHTML = `Lives: ${lives}`;
     if (checkIfPlayerWon(palletsList) === true) {
+        borderBlinkSpeed = 300;
         winningScreen();
     }
-}
+};
 
 addEventListener("keydown", (event) => {
   if (event.key === "d" || event.key === "ArrowRight") {
@@ -52,4 +62,4 @@ addEventListener("keydown", (event) => {
 setInterval(update, DT); 
  */
 setInterval(main, DT);
-winningScreen();
+setInterval(borderBlink, borderBlinkSpeed)

@@ -66,6 +66,7 @@ const FPS = 60;
 const DT = 1000 / FPS;
 
 const displayScore = document.querySelector("#score");
+const displayLives = document.querySelector("#lives");
 const pacman = document.querySelector("#pacman");
 const blinkySprite = document.querySelector("#blinky-sprite");
 const pinkySprite = document.querySelector("#pinky-sprite");

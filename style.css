@@ -36,7 +36,6 @@ body {
     border: 20px solid rgb(197, 240, 7);
     border-radius: 10px;
     box-shadow: 10px 10px 30px rgb(197, 240, 7);
-
 }
 
 .entity {
@@ -69,6 +68,6 @@ body {
     border-radius: 100%;
 }
 
-.endscreen {
-    z-index: 10;
-}
+/* .endscreen {
+    z-index: ;
+} */

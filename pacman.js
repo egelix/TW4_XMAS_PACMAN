@@ -196,6 +196,18 @@ function checkIfPacmanEatsPallet(pacmanPos, palletsList) {
     }
 };
 
+function checkIfPacmanTouchesGhosts(pacmanPos, blinkyPos, pinkyPos, inkyPos, clydePos) {
+    let ghostsPos = [blinkyPos, pinkyPos, inkyPos, clydePos];
+    for (let ghost of ghostsPos) {
+        if (ghost[0] === pacmanPos[0] && ghost[1] < pacmanPos[1] + RASTER_SIZE && ghost[1] > pacmanPos[1] - RASTER_SIZE) {
+            return true;
+        } else if (ghost[1] === pacmanPos[1] && ghost[0] < pacmanPos[0] + RASTER_SIZE && ghost[0] > pacmanPos[0] - RASTER_SIZE) {
+            return true;
+        } 
+    }
+    return false;
+}
+
 function mainGhostMovementAndAnimation() {
     blinkyPos = resetSpritesToNodes(blinkyPos, testNodesVar, GHOST_VELOCITY);
     pinkyPos = resetSpritesToNodes(pinkyPos, testNodesVar, GHOST_VELOCITY);
@@ -235,6 +247,12 @@ function checkIfPlayerWon(palletsList) {
     } return true;
 };
 
+function borderBlink() {
+    let borderEl = document.querySelector("#maze");
+    borderEl.style.border = borderEl.style.border === "20px solid rgb(197, 240, 7)" ? "20px solid rgb(32, 32, 32)" : "20px solid rgb(197, 240, 7)";
+    borderEl.style["box-shadow"] = borderEl.style["box-shadow"] === "rgb(197, 240, 7) 10px 10px 30px" ? "rgb(32, 32, 32) 10px 10px 30px" : "rgb(197, 240, 7) 10px 10px 30px";
+};
+
 function winningScreen() {
     MAZE_EL.insertAdjacentHTML("beforeend", `<img src="./assets/images/Win.png" class="endscreen">`);
-}
+};
