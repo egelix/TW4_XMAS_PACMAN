@@ -72,13 +72,12 @@ addEventListener("keydown", (event) => {
   }
 });
 
-// ####### INTERVAL TIMEOUT FUNKTION ########################
+// ####### INTERVAL && TIMEOUT FUNKTION ########################
 gameStartTimer = setTimeout(function GameOn() {
   gameModeDuration = gameMode === "SCATTER" ? SCATTER_DURATION : CHASE_DURATION;
   gameMode = gameMode === "SCATTER" ? "CHASE" : "SCATTER";
   gameStartTimer = setTimeout(GameOn, gameModeDuration);
 }, gameModeDuration);
 
-setInterval(() => console.log("1"), 1000);
 const mainId = setInterval(main, DT);
 const borderId = setInterval(borderBlink, BORDER_BLINK_SPEED);
