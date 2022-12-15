@@ -164,6 +164,21 @@ function ghostRandomMove(lastGhostMove, ghostPos, testNodesVar) {
         }
     } return lastGhostMove;
 }
+function ghostChaseMove(lastGhostMove, ghostPos, testNodesVar, pacmanPos) {
+  for (let node of testNodesVar) {
+      if (ghostPos[0] === node.position[0] && ghostPos[1] === node.position[1]) {
+          return getDirection(node, pacmanPos);
+      }
+  } return lastGhostMove;
+}
+function ghostScatterMove(lastGhostMove, ghostPos, testNodesVar, ghostCorner) {
+  for (let node of testNodesVar) {
+      if (ghostPos[0] === node.position[0] && ghostPos[1] === node.position[1]) {
+          return getDirection(node, ghostCorner);
+      }
+  } return lastGhostMove;
+}
+
 
 function ghostMovementAndAnimation(ghostSprite, ghostPos, ghostMoveDir, velocity, ghostImgArr) {
     let newGhostPos = ghostPos;
@@ -209,34 +224,51 @@ function checkIfPacmanTouchesGhosts(pacmanPos, blinkyPos, pinkyPos, inkyPos, cly
 }
 
 function mainGhostMovementAndAnimation() {
-    blinkyPos = resetSpritesToNodes(blinkyPos, testNodesVar, GHOST_VELOCITY);
-    pinkyPos = resetSpritesToNodes(pinkyPos, testNodesVar, GHOST_VELOCITY);
-    inkyPos = resetSpritesToNodes(inkyPos, testNodesVar, GHOST_VELOCITY);
-    clydePos = resetSpritesToNodes(clydePos, testNodesVar, GHOST_VELOCITY);
-
+  blinkyPos = resetSpritesToNodes(blinkyPos, testNodesVar, GHOST_VELOCITY);
+  pinkyPos = resetSpritesToNodes(pinkyPos, testNodesVar, GHOST_VELOCITY);
+  inkyPos = resetSpritesToNodes(inkyPos, testNodesVar, GHOST_VELOCITY);
+  clydePos = resetSpritesToNodes(clydePos, testNodesVar, GHOST_VELOCITY);
+  
+  if (gameMode === "SCATTER") {
+    blinkyMoveDir = ghostScatterMove(lastBlinkyMove, blinkyPos, testNodesVar, BLINKY_CORNER);
+    pinkyMoveDir = ghostRandomMove(lastPinkyMove, pinkyPos, testNodesVar);
+    inkyMoveDir = ghostRandomMove(lastInkyMove, inkyPos, testNodesVar);
+    clydeMoveDir = ghostRandomMove(lastClydeMove, clydePos, testNodesVar);
+  } else if (gameMode === "CHASE") {
+    blinkyMoveDir = ghostChaseMove(lastBlinkyMove, blinkyPos, testNodesVar, pacmanPos);
+    pinkyMoveDir = ghostRandomMove(lastPinkyMove, pinkyPos, testNodesVar);
+    inkyMoveDir = ghostRandomMove(lastInkyMove, inkyPos, testNodesVar);
+    clydeMoveDir = ghostRandomMove(lastClydeMove, clydePos, testNodesVar);
+  } else if (gameMode === "Fright") {
     blinkyMoveDir = ghostRandomMove(lastBlinkyMove, blinkyPos, testNodesVar);
+    pinkyMoveDir = ghostRandomMove(lastPinkyMove, pinkyPos, testNodesVar);
+    inkyMoveDir = ghostRandomMove(lastInkyMove, inkyPos, testNodesVar);
+    clydeMoveDir = ghostRandomMove(lastClydeMove, clydePos, testNodesVar);
+  }
+
     blinkyPos = ghostMovementAndAnimation(blinkySprite, blinkyPos, blinkyMoveDir, GHOST_VELOCITY, blinkyAni);
     blinky.style.left = `${blinkyPos[0]}px`;
     blinky.style.top = `${blinkyPos[1]}px`;
     lastBlinkyMove = blinkyMoveDir;
 
-    pinkyMoveDir = ghostRandomMove(lastPinkyMove, pinkyPos, testNodesVar);
     pinkyPos = ghostMovementAndAnimation(pinkySprite, pinkyPos, pinkyMoveDir, GHOST_VELOCITY, pinkyAni);
     pinky.style.left = `${pinkyPos[0]}px`;
     pinky.style.top = `${pinkyPos[1]}px`;
     lastPinkyMove = pinkyMoveDir;
 
-    inkyMoveDir = ghostRandomMove(lastInkyMove, inkyPos, testNodesVar);
     inkyPos = ghostMovementAndAnimation(inkySprite, inkyPos, inkyMoveDir, GHOST_VELOCITY, inkyAni);
     inky.style.left = `${inkyPos[0]}px`;
     inky.style.top = `${inkyPos[1]}px`;
     lastInkyMove = inkyMoveDir;
 
-    clydeMoveDir = ghostRandomMove(lastClydeMove, clydePos, testNodesVar);
     clydePos = ghostMovementAndAnimation(clydeSprite, clydePos, clydeMoveDir, GHOST_VELOCITY, clydeAni);
     clyde.style.left = `${clydePos[0]}px`;
     clyde.style.top = `${clydePos[1]}px`;
     lastClydeMove = clydeMoveDir;
+
+    if (gameMode === "FRIGHT") {
+      blinkySprite.src = "./assets/images/ghosts/ghost-fright.png";
+    }
 };
 
 function checkIfPlayerWon(palletsList) {
