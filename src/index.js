@@ -10,7 +10,7 @@ let testNodesVar = createNodeChain(LEVEL_0);
 */
 const maze = createMaze(LEVEL_0);
 let testNodesVar = createNodeChain(LEVEL_0);
-renderNodes(testNodesVar);
+// renderNodes(testNodesVar);
 let lives = 3;
 
 function main() {
@@ -29,6 +29,11 @@ function main() {
   mainGhostMovementAndAnimation();
 
   checkIfPacmanEatsPallet(pacmanPos, palletsList);
+
+  if (checkIfPacmanEatsPowerPallet(pacmanPos, palletsPowList)) {
+    gameMode = "FRIGHT";
+  }
+
   displayScore.innerHTML = `Score: ${score}`;
   if (checkIfPlayerWon(palletsList) === true) {
     endGameWhenWon();

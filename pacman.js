@@ -218,6 +218,7 @@ function checkIfPacmanEatsPowerPallet(pacmanPos, powerPalletsList) {
               const elementToRemove = pallet["el"];
               elementToRemove.remove();
               pallet["el"] = null;
+              return true;
           }
       }
   }
