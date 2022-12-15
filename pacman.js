@@ -264,9 +264,10 @@ function checkIfPlayerLost(lives) {
     }
 }
 function endGameWhenLost() {
+  // pacmanSprite = "./assets/images/pacman/pacmanGS.png";
+  borderEl.style["box-shadow"] = "rgb(32, 32, 32) 10px 10px 30px";
   clearInterval(mainId);
   clearInterval(borderId);
-  borderEl.style["box-shadow"] = "rgb(32, 32, 32) 10px 10px 30px";
   losingScreen();
   setInterval(mainGhostMovementAndAnimation, DT);
 }

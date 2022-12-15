@@ -48,6 +48,7 @@ function main() {
       getStartPosition(LEVEL_0, "pacman").x,
       getStartPosition(LEVEL_0, "pacman").y,
     ];
+    lastPmMove = "STILL";
     pmMoveDir = "STILL";
   }
   displayLives.innerHTML = `Lives: ${lives}`;

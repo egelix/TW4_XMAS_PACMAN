@@ -7,7 +7,7 @@ const WALL_SOURCE = "./assets/images/wall.png";
 const PALLET_SOURCE = "./assets/images/pellet/pellet.png";
 const PALLET_POW_SOURCE = "../assets/images/pellet/power-pellet.png";
 const BORDER_BLINK_SPEED = 1000;
-const BORDER_BLINK_WINNING = 300;
+const BORDER_BLINK_WINNING = 200;
 const pmRightAni = [
   "./assets/images/pacman/pacman-0.png",
   "./assets/images/pacman/pacman-right/pacman-right-1.png",
