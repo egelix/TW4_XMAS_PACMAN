@@ -236,6 +236,19 @@ function checkIfPacmanTouchesGhosts(pacmanPos, blinkyPos, pinkyPos, inkyPos, cly
     return false;
 }
 
+function ghostEatsPacman() {
+  lives -= 1;
+  pacmanPos = [
+    getStartPosition(LEVEL_0, "pacman").x,
+    getStartPosition(LEVEL_0, "pacman").y,
+  ];
+  lastPmMove = "STILL";
+  pmMoveDir = "STILL";
+};
+function pacmanEatsGhost() {
+  
+}
+
 function mainGhostMovementAndAnimation() {
   blinkyPos = resetSpritesToNodes(blinkyPos, testNodesVar, GHOST_VELOCITY);
   pinkyPos = resetSpritesToNodes(pinkyPos, testNodesVar, GHOST_VELOCITY);

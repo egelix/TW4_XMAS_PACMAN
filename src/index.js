@@ -48,13 +48,11 @@ function main() {
       clydePos
     ) === true
   ) {
-    lives -= 1;
-    pacmanPos = [
-      getStartPosition(LEVEL_0, "pacman").x,
-      getStartPosition(LEVEL_0, "pacman").y,
-    ];
-    lastPmMove = "STILL";
-    pmMoveDir = "STILL";
+    if (gameMode === "FRIGHT") {
+      pacmanEatsGhost();
+    } else {
+      ghostEatsPacman();
+    }
   }
   displayLives.innerHTML = `Lives: ${lives}`;
   if (checkIfPlayerLost(lives) === true) {
