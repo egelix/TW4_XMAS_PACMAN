@@ -34,7 +34,12 @@ function createMaze(level, dx = RASTER_SIZE, dy = RASTER_SIZE) {
         };
         palletsList.push(pallet);
       } else if (sourcePattern[counter] === "X") {
-        createTableEl(x, y, PALLET_POW_SOURCE);
+        let powPallet = {
+          x: x,
+          y: y,
+          el: createTableEl(x, y, PALLET_POW_SOURCE),
+        };
+        palletsPowList.push(powPallet);
       }
       counter += 1;
     }
