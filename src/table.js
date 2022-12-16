@@ -2,16 +2,16 @@
 // for testing purposes
 
 function createTableEl(x, y, source) {
-  let wallEl = document.createElement("img");
-  wallEl.src = source;
-  wallEl.style.position = "absolute";
-  wallEl.style.width = RASTER_SIZE + "px";
-  wallEl.style.height = RASTER_SIZE + "px";
-  wallEl.style.left = x + "px";
-  wallEl.style.top = y + "px";
+  let el = document.createElement("img");
+  el.src = source;
+  el.style.position = "absolute";
+  el.style.width = RASTER_SIZE + "px";
+  el.style.height = RASTER_SIZE + "px";
+  el.style.left = x + "px";
+  el.style.top = y + "px";
 
-  MAZE_EL.appendChild(wallEl);
-  return wallEl;
+  MAZE_EL.appendChild(el);
+  return el;
 }
 
 function createMaze(level, dx = RASTER_SIZE, dy = RASTER_SIZE) {
@@ -23,7 +23,7 @@ function createMaze(level, dx = RASTER_SIZE, dy = RASTER_SIZE) {
   MAZE_EL.style.height = nY * dy + "px";
 
   for (let y = 0; y < nY * RASTER_SIZE; y += dy) {
-    for (let x = 0; x < nX * RASTER_SIZE; x += dx) {
+    for (let x = 0; x < nX * RASTER_SIZE; x += dx, counter++) {
       if (sourcePattern[counter] === "#") {
         createTableEl(x, y, WALL_SOURCE);
       } else if (palletSymbols.includes(sourcePattern[counter])) {
@@ -41,7 +41,6 @@ function createMaze(level, dx = RASTER_SIZE, dy = RASTER_SIZE) {
         };
         palletsPowList.push(powPallet);
       }
-      counter += 1;
     }
   }
 }

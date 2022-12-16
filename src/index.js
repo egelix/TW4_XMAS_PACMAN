@@ -61,7 +61,7 @@ function main() {
 }
 
 addEventListener("keydown", (event) => {
-  if (event.key === "d" || event.key === "ArrowRight") {
+  if (KEYS_RIGHT.includes(event.key)) {
     chosenPmMoveDir = "RIGHT";
   } else if (event.key === "a" || event.key === "ArrowLeft") {
     chosenPmMoveDir = "LEFT";
@@ -73,7 +73,7 @@ addEventListener("keydown", (event) => {
 });
 
 // ####### INTERVAL && TIMEOUT FUNKTION ########################
-gameStartTimer = setTimeout(function GameOn() {
+let gameStartTimer = setTimeout(function GameOn() {
   gameModeDuration = gameMode === "SCATTER" ? SCATTER_DURATION : CHASE_DURATION;
   gameMode = gameMode === "SCATTER" ? "CHASE" : "SCATTER";
   gameStartTimer = setTimeout(GameOn, gameModeDuration);

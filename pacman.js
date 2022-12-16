@@ -1,8 +1,9 @@
 let chosenPmMoveDir = "STILL";
 let lastPmMove = "STILL";
+const pacmanStartPosition = getStartPosition(LEVEL_0, "pacman");
 let pacmanPos = [
-  getStartPosition(LEVEL_0, "pacman").x,
-  getStartPosition(LEVEL_0, "pacman").y,
+  pacmanStartPosition.x,
+  pacmanStartPosition.y,
 ];
 
 let blinkyMoveDir = "STILL";
@@ -47,6 +48,7 @@ function pacmanValidMove(pacmanPos, testNodesVar, chosenPmMoveDir, lastPmMove) {
       }
     }
   }
+
   if (nodeHit === false) {
     return (chosenPmMoveDir === "RIGHT" && lastPmMove === "LEFT") ||
       (chosenPmMoveDir === "LEFT" && lastPmMove === "RIGHT") ||

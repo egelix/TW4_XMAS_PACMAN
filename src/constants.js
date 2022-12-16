@@ -58,6 +58,9 @@ const clydeAni = [
   "./assets/images/ghosts/ghost-clyde-down.png",
   "./assets/images/ghosts/ghost-clyde-left.png",
 ];
+
+const KEYS_RIGHT = ["d", "ArrowRight"];
+
 const pmAniSpeed = 15;
 const nodeSymbols = ["X", "+", "x", "@", "B", "P", "I", "C", "1"];
 const wallSymbols = ["#"];
@@ -84,7 +87,7 @@ const blinkySprite = document.querySelector("#blinky-sprite");
 const pinkySprite = document.querySelector("#pinky-sprite");
 const inkySprite = document.querySelector("#inky-sprite");
 const clydeSprite = document.querySelector("#clyde-sprite");
-var gameMode = "SCATTER";
+let gameMode = "SCATTER";
 let borderEl = document.querySelector("#maze");
 let eatenGhost;
 let frightScore = 100;

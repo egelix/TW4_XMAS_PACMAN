@@ -202,21 +202,21 @@ function getNodeByCoord(x, y, nodeList) {
 function connectHorizontally(level, nodeList) {
   let count = 0;
   for (let y = 0; y < level.sizeY; y++) {
-    let key = null;
+    let previousNodeKey = null;
     for (let x = 0; x < level.sizeX; x++) {
       if (nodeSymbols.includes(level.pattern[count])) {
-        if (key === null) {
-          key = constructKey(x, y);
+        if (previousNodeKey === null) {
+          previousNodeKey = constructKey(x, y);
         } else {
           let otherkey = constructKey(x, y);
-          let firstNode = getNodeByCoord(key.x, key.y, nodeList);
+          let firstNode = getNodeByCoord(previousNodeKey.x, previousNodeKey.y, nodeList);
           let secondNode = getNodeByCoord(otherkey.x, otherkey.y, nodeList);
           firstNode.right = secondNode;
           secondNode.left = firstNode;
-          key = otherkey;
+          previousNodeKey = otherkey;
         }
       } else if (wallSymbols.includes(level.pattern[count])) {
-        key = null;
+        previousNodeKey = null;
       }
       count += 1;
     }
