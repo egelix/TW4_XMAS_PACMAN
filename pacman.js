@@ -199,33 +199,33 @@ function ghostMovementAndAnimation(ghostSprite, ghostPos, ghostMoveDir, velocity
 }
 let score = 0
 function checkIfPacmanEatsPallet(pacmanPos, palletsList) {
+    // for (let pallet of palletsList) {
+    //     if (pallet["x"] === pacmanPos[0] && pallet["y"] === pacmanPos[1]){
+    //         if (pallet["el"] !== null) {
+    //             score += 10;
+    //             const elementToRemove = pallet["el"];
+    //             elementToRemove.remove();
+    //             pallet["el"] = null;
+    //         }
+    //     }
+    // }
     for (let pallet of palletsList) {
-        if (pallet["x"] === pacmanPos[0] && pallet["y"] === pacmanPos[1]){
-            if (pallet["el"] !== null) {
-                score += 10;
-                const elementToRemove = pallet["el"];
-                elementToRemove.remove();
-                pallet["el"] = null;
-            }
-        }
-    }
-  //   for (let pallet of palletsList) {
-  //     if (pallet["x"] === pacmanPos[0] && pallet["y"] + (VELOCITY / 2) > pacmanPos[1] && pallet["y"] - (VELOCITY / 2) < pacmanPos[1]){
-  //         if (pallet["el"] !== null) {
-  //             score += 10;
-  //             const elementToRemove = pallet["el"];
-  //             elementToRemove.remove();
-  //             pallet["el"] = null;
-  //         }
-  //     } else if (pallet["y"] === pacmanPos[1] && pallet["x"] + (VELOCITY / 2) > pacmanPos[0] && pallet["x"] - (VELOCITY / 2) < pacmanPos[0]){
-  //         if (pallet["el"] !== null) {
-  //           score += 10;
-  //           const elementToRemove = pallet["el"];
-  //           elementToRemove.remove();
-  //           pallet["el"] = null;
-  //         }
-  //     }
-  // }
+      if (pallet["x"] === pacmanPos[0] && pallet["y"] + (VELOCITY / 2) > pacmanPos[1] && pallet["y"] - (VELOCITY / 2) < pacmanPos[1]){
+          if (pallet["el"] !== null) {
+              score += 10;
+              const elementToRemove = pallet["el"];
+              elementToRemove.remove();
+              pallet["el"] = null;
+          }
+      } else if (pallet["y"] === pacmanPos[1] && pallet["x"] + (VELOCITY / 2) > pacmanPos[0] && pallet["x"] - (VELOCITY / 2) < pacmanPos[0]){
+          if (pallet["el"] !== null) {
+            score += 10;
+            const elementToRemove = pallet["el"];
+            elementToRemove.remove();
+            pallet["el"] = null;
+          }
+      }
+  }
 };
 
 function checkIfPacmanEatsPowerPallet(pacmanPos, powerPalletsList) {
